@@ -16,6 +16,11 @@ class Logs extends Eloquent {
      */
     public $incrementing = false;
 
+    /**
+	 * The primary key of this model
+	 */
+	protected $primaryKey = 'id';
+
 	protected $hidden = array();
 
 	public function surat()

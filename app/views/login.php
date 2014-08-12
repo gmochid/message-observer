@@ -17,7 +17,9 @@
 
 	        <div class="text-center">
 	          <h2>Aplikasi Kontrol Surat</h2>
-	          <br/><br/>
+	          <a href="/">Home (Live Update)</a>
+	          <br/>
+	          <br/>
 	        </div>
 
 	        <div class="form-group">

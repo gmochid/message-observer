@@ -16,6 +16,8 @@
 	<div class="container">
 		<div class="page-header">
 		  <h1><a href="/dashboard">Aplikasi Kontrol Surat</a> <small>Dashboard</small></h1>
+      <a href="/">Home (Live Update)</a><br/>
+      <a href="/logout">Logout</a>
 		</div>
 
     <div>

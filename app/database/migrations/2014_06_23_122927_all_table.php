@@ -49,6 +49,7 @@ class AllTable extends Migration {
 
 		Schema::create('log',function($table)
 		{
+			$table->increments('id');
 			$table->string('username');
 			$table->string('no');
 			$table->integer('status_id');

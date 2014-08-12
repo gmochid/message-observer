@@ -16,6 +16,12 @@
 	<div class="container">
 		<div class="page-header">
       <h1>Aplikasi Kontrol Surat <small>Live Update</small></h1>
+      @if (Auth::check())
+      <a href="/dashboard">Dashboard</a><br/>
+      @endif
+      @if (Auth::guest())
+      <a href="/login">Login</a>
+      @endif
     </div>
 
 		<div>
