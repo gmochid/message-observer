@@ -17,7 +17,7 @@
 
 	        <div class="text-center">
 	          <h2>Aplikasi Kontrol Surat</h2>
-	          <a href="/">Home (Live Update)</a>
+	          <!-- <a href="/">Home (Live Update)</a> -->
 	          <br/>
 	          <br/>
 	        </div>

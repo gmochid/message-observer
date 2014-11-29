@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="page-header">
 		  <h1><a href="/dashboard">Aplikasi Kontrol Surat</a> <small>Dashboard</small></h1>
-      <a href="/">Home (Live Update)</a><br/>
+      <!-- <a href="/">Home (Live Update)</a><br/> -->
       <a href="/logout">Logout</a>
 		</div>
 
@@ -54,8 +54,15 @@
 	          <td><?php echo $surat->asal; ?></td>
 	          <td><?php echo strtok($surat->created_at, " "); ?></td>
 	          <td>
-	          	<?php foreach ($surat->logs as $log) { ?>
-	          		<div><?php echo strtok($log->created_at, " "); ?>, <?php echo $log->user->nickname; ?>, <?php echo $log->status->detail; ?></div>
+              <?php 
+                $i=sizeof($surat->logs)-1;
+                $log = $surat->logs[$i];
+                $i--;                
+              ?>
+              <div><b><?php echo strtok($log->created_at, " "); ?>, <?php echo $log->user->nickname; ?>, <?php echo $log->status->detail; ?></b></div>
+	          	<?php for ($i=$i; $i >= 0; $i--) { ?>
+                <?php $log = $surat->logs[$i]; ?>
+	          		<div><font color="D0D0D0"><?php echo strtok($log->created_at, " "); ?>, <?php echo $log->user->nickname; ?>, <?php echo $log->status->detail; ?></font></div>
 	          	<?php } ?>
 	          </td>
 	          <td><?php echo $surat->keterangan; ?></td>

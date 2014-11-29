@@ -33,6 +33,11 @@
         </div>
 
         <div class="form-group">
+          <label>Alamat Email</label>
+          <input type="text" class="form-control" name="email" />
+        </div>
+
+        <div class="form-group">
           <label>Perihal</label>
           <input type="text" class="form-control" name="perihal" />
         </div>
