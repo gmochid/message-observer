@@ -114,6 +114,8 @@ class TableSeeder extends Seeder {
 		Surat::create(
 			array(
 				'no'			=> 'PM_61.01-0001',
+				'email'			=> 'coba@email.com',
+				'barcode'		=> '123456789',
 				'perihal'		=> 'Permohonan Anggaran Pelatihan',
 				'asal'			=> 'UNISSULA - FK. Farmasi',
 				'keterangan'	=> '',
@@ -124,6 +126,8 @@ class TableSeeder extends Seeder {
 		Surat::create(
 			array(
 				'no'			=> 'PM_61.08-0002',
+				'email'			=> 'user@mail.com',
+				'barcode'		=> '0987654321',
 				'perihal'		=> 'Permohonan Dana Pembangunan',
 				'asal'			=> 'Bagian Pembangunan YBWSA',
 				'keterangan'	=> 'Dana sudah disetujui',

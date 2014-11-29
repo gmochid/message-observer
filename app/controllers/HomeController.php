@@ -4,16 +4,17 @@ class HomeController extends BaseController {
 
 	public function __construct()
 	{
+		Log::info('cek gan');
 		$this->beforeFilter('guest', array('only' => array('showLogin')));
 
-		$this->beforeFilter('auth', array('only' => array('showDashboard')));
+		$this->beforeFilter('auth', array('only' => array('showDashboard', 'showHome')));
 	}
 
 	public function showHome()
 	{
-		$allSurat = Surat::all();
+		$allSurat = Surat::all();		
 
-		return View::make('home', array('allSurat' => $allSurat));
+		return View::make('dashboard', array('allSurat' => $allSurat));
 	}
 
 	public function showDashboard()
@@ -25,7 +26,8 @@ class HomeController extends BaseController {
 
 	public function showLogin()
 	{
-		return View::make('login');
+
+		return View::make('login');		
 	}
 
 }

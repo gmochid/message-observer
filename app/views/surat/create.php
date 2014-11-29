@@ -38,6 +38,11 @@
         </div>
 
         <div class="form-group">
+          <label>Barcode</label>
+          <input type="text" class="form-control" name="barcode" />
+        </div>
+
+        <div class="form-group">
           <label>Perihal</label>
           <input type="text" class="form-control" name="perihal" />
         </div>

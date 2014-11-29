@@ -45,14 +45,16 @@ class SuratController extends BaseController {
 
 		$surat 	= new Surat;
 		$surat->no 				= Input::get('no', '');
+		$surat->email 			= Input::get('email', '');
+		$surat->barcode 		= Input::get('barcode', '');
 		$surat->perihal 		= Input::get('perihal', '');
 		$surat->asal 			= Input::get('asal', '');
 		$surat->keterangan 		= Input::get('keterangan', '');
 		$surat->final 			= 0;
 
-		if (($surat->no == '') || ($surat->perihal == '') || ($surat->asal == ''))
+		if (($surat->no == '') || ($surat->email == '') || ($surat->barcode == '') || ($surat->perihal == '') || ($surat->asal == ''))
 		{
-			return View::make('surat.create', array('error' => 'Nomor, perihal dan asal tidak boleh kosong'));
+			return View::make('surat.create', array('error' => 'Nomor, email, barcode, perihal dan asal tidak boleh kosong'));
 		}
 
 		try{
@@ -77,7 +79,7 @@ class SuratController extends BaseController {
 		if($surat == null)
 		{
 			return View::make('surat.update', array('error' => 'Nomor surat tidak ditemukan'));
-		}
+		}		
 
 		$surat->keterangan		= Input::get('keterangan', $surat->keterangan);
 		$surat->save();
@@ -88,6 +90,10 @@ class SuratController extends BaseController {
 		$log->status_id 		= Input::get('status');
 
 		$log->save();
+
+		//send email update	
+		$content = "Surat anda telah sampai pada " . $log->status_id;
+		$this->sendEmail($surat->email, $content);
 
 		return Redirect::to('/dashboard');
 	}
@@ -112,5 +118,20 @@ class SuratController extends BaseController {
 		$log->save();
 
 		return Redirect::to('/dashboard');
+	}
+
+	public function sendEmail($adress, $content) {			
+		$urlAPI = OAUTH_HOST.'/TemanDev/rest/sendEmail/';
+	    $opt = array(CURLOPT_HTTPHEADER=>array('Content-Type: application/json'));
+	    $body = '{"sendEmail":{"to":'$adress',"subject":"coba","content":'$content'}}';        
+	    $request = new OAuthRequester($urlAPI,'POST',$tokenResultParams,$body);
+	    echo 'execute api..';
+	    $result = $request->doRequest(0,$opt);
+	    if ($result['code'] == 200) {
+	            echo $result['body'];
+	    }
+	    else {
+	            echo 'Error: '.$result['code'];
+	    }
 	}
 }
