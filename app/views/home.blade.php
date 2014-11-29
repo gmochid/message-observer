@@ -10,6 +10,7 @@
   <style type="text/css">
     table.fixed { table-layout:fixed; }
     table.fixed td { overflow: hidden; }
+    login {text-align: right; }
   </style>
 </head>
 <body>
@@ -20,7 +21,9 @@
       <a href="/dashboard">Dashboard</a><br/>
       @endif
       @if (Auth::guest())
-      <a href="/login">Login</a>
+      <div class="login">
+        <a href="/login">Login</a>
+      </div>
       @endif
     </div>
 
@@ -52,16 +55,16 @@
 	          <td><?php echo $surat->asal; ?></td>
 	          <td><?php echo strtok($surat->created_at, " "); ?></td>
 	          <td>
-              <?php 
+              <?php
                 $i=sizeof($surat->logs)-1;
                 $log = $surat->logs[$i];
-                $i--;                
+                $i--;
               ?>
               <div><b><?php echo strtok($log->created_at, " "); ?>, <?php echo $log->user->nickname; ?>, <?php echo $log->status->detail; ?></b></div>
 	          	<?php for ($i=$i; $i >= 0; $i--) { ?>
                 <?php $log = $surat->logs[$i] ?>
 	          		<div><font color="D0D0D0"><?php echo strtok($log->created_at, " "); ?>, <?php echo $log->user->nickname; ?>, <?php echo $log->status->detail; ?></font></div>
-	          	<?php } ?>              
+	          	<?php } ?>
 	          </td>
 	          <td><?php echo $surat->keterangan; ?></td>
 	        </tr>
@@ -75,7 +78,7 @@
 <script language="javascript" type="text/javascript">
   $(document).ready(function() {
     setInterval("location.reload(true)", 300000);
-  });   
+  });
 </script>
 
 </html>
