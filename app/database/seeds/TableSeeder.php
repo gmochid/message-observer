@@ -126,7 +126,7 @@ class TableSeeder extends Seeder {
 				'no'			=> 'PM_61.08-0002',
 				'perihal'		=> 'Permohonan Dana Pembangunan',
 				'asal'			=> 'Bagian Pembangunan YBWSA',
-				'keterangan'	=> '',
+				'keterangan'	=> 'Dana sudah disetujui',
 				'final'			=> 1,
 			)
 		);

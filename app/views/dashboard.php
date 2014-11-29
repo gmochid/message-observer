@@ -58,7 +58,7 @@
 	          		<div><?php echo strtok($log->created_at, " "); ?>, <?php echo $log->user->nickname; ?>, <?php echo $log->status->detail; ?></div>
 	          	<?php } ?>
 	          </td>
-	          <td><?php echo $surat->Keterangan; ?></td>
+	          <td><?php echo $surat->keterangan; ?></td>
 	          <td>
               <?php if ($surat->final == 0) { ?>
 	          	<div>
