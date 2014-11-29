@@ -6,10 +6,11 @@
 
 	<link href="<?php echo asset('lib/css/bootstrap.min.css')?>" rel="stylesheet">
 	<script type="text/javascript" src="<?php echo asset('lib/js/bootstrap.min.js') ?>"></script>
-  
+
   <style type="text/css">
     table.fixed { table-layout:fixed; }
     table.fixed td { overflow: hidden; }
+    loujien {text-align: right; text-size: 32px;}
   </style>
 </head>
 <body>
@@ -17,7 +18,9 @@
 		<div class="page-header">
 		  <h1><a href="/dashboard">Aplikasi Kontrol Surat</a> <small>Dashboard</small></h1>
       <!-- <a href="/">Home (Live Update)</a><br/> -->
-      <a href="/logout">Logout</a>
+      <div class="loujien">
+        <a href="/logout">Logout</a>
+      </div>
 		</div>
 
     <div>
@@ -54,10 +57,10 @@
 	          <td><?php echo $surat->asal; ?></td>
 	          <td><?php echo strtok($surat->created_at, " "); ?></td>
 	          <td>
-              <?php 
+              <?php
                 $i=sizeof($surat->logs)-1;
                 $log = $surat->logs[$i];
-                $i--;                
+                $i--;
               ?>
               <div><b><?php echo strtok($log->created_at, " "); ?>, <?php echo $log->user->nickname; ?>, <?php echo $log->status->detail; ?></b></div>
 	          	<?php for ($i=$i; $i >= 0; $i--) { ?>
