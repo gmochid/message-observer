@@ -27,6 +27,9 @@
 
       <div class="panel-body">
 
+        <input type="hidden" class="form-control" name="barcode" value="<?php echo $surat->barcode; ?>" />
+        <input type="hidden" class="form-control" name="email" value="<?php echo $surat->email; ?>" />
+
     		<div class="form-group">
           <label>Nomor Surat</label>
           <input readonly type="text" class="form-control" name="no" value="<?php echo $surat->no; ?>" />

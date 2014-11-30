@@ -14,7 +14,7 @@ class SuratController extends BaseController {
 
 	public function showUpdate()
 	{
-		$surat = Surat::where('no', '=', Input::get('no', ''))->first();
+		$surat = Surat::where('barcode', '=', Input::get('barcode', ''))->first();
 		if($surat == null)
 		{
 			return Redirect::to('/dashboard');
@@ -75,7 +75,7 @@ class SuratController extends BaseController {
 
 	public function update()
 	{
-		$surat = Surat::where('no', '=', Input::get('no', ''))->first();
+		$surat = Surat::where('barcode', '=', Input::get('barcode', ''))->first();
 		if($surat == null)
 		{
 			return View::make('surat.update', array('error' => 'Nomor surat tidak ditemukan'));
@@ -85,15 +85,19 @@ class SuratController extends BaseController {
 		$surat->save();
 
 		$log	= new Logs;
-		$log->no 				= $surat->no;
+		$log->no 				= $surat->no;		
 		$log->username 			= Auth::user()->username;
 		$log->status_id 		= Input::get('status');
 
 		$log->save();
-
-		//send email update	
-		$content = "Surat anda telah sampai pada " . $log->status_id;
-		$this->sendEmail($surat->email, $content);
+		
+		$data = array(			
+			'status'		=> Status::find($log->status_id)
+		);
+		Mail::send('emails.notif', $data, function($message) {
+		    $message->to(Input::get('email', ''), '')->subject('Mailon Update');
+		});
+		// Log::info('bisaa');
 
 		return Redirect::to('/dashboard');
 	}
@@ -120,18 +124,4 @@ class SuratController extends BaseController {
 		return Redirect::to('/dashboard');
 	}
 
-	public function sendEmail($adress, $content) {			
-		$urlAPI = OAUTH_HOST.'/TemanDev/rest/sendEmail/';
-	    $opt = array(CURLOPT_HTTPHEADER=>array('Content-Type: application/json'));
-	    $body = '{"sendEmail":{"to":'$adress',"subject":"coba","content":'$content'}}';        
-	    $request = new OAuthRequester($urlAPI,'POST',$tokenResultParams,$body);
-	    echo 'execute api..';
-	    $result = $request->doRequest(0,$opt);
-	    if ($result['code'] == 200) {
-	            echo $result['body'];
-	    }
-	    else {
-	            echo 'Error: '.$result['code'];
-	    }
-	}
 }

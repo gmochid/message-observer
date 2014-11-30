@@ -87,5 +87,5 @@ require app_path().'/filters.php';
 |
 */
 
-require app_path().'/oauth/setup.php';
+// require app_path().'/oauth/setup.php';
 

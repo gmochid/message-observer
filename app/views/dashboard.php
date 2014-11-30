@@ -75,7 +75,7 @@
 	          		<a href="/surat/finalize?no=<?php echo $surat->no; ?>" class="btn btn-default btn-xs btn-success">Finalisasi</a>
 	          	</div>
 	          	<div>
-	          		<a href="/surat/update?no=<?php echo $surat->no; ?>" class="btn btn-default btn-xs">Update</a>
+	          		<a href="/surat/update?barcode=<?php echo $surat->barcode; ?>" class="btn btn-default btn-xs">Update</a>
 	          	</div>
               <?php } ?>
 	          </td>
