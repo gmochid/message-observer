@@ -16,7 +16,7 @@
 	        action="<?php echo url('/login'); ?>">
 
 	        <div class="text-center">
-	          <h2>Mailon</h2>
+	          <h2><img src="<?php echo asset('lib/img/logo.jpg')?>" width="200"></h2>
 	          <!-- <a href="/">Home (Live Update)</a> -->
 	          <br/>
 	          <br/>
