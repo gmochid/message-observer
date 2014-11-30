@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>Aplikasi Kontrol Surat</title>
+	<title>Mailon</title>
 	<script type="text/javascript" src="<?php echo asset('lib/js/jquery-1.10.2.min.js'); ?>"></script>
 
 	<link href="<?php echo asset('lib/css/bootstrap.min.css')?>" rel="stylesheet">
@@ -16,7 +16,7 @@
 <body>
 	<div class="container">
 		<div class="page-header">
-		  <h1><a href="/dashboard">Aplikasi Kontrol Surat</a> <small>Dashboard</small></h1>
+		  <h1><a href="/dashboard">Mailon</a> <small>Dashboard</small></h1>
       <!-- <a href="/">Home (Live Update)</a><br/> -->
       <div class="loujien">
         <a href="/logout">Logout</a>
@@ -45,7 +45,7 @@
           <th>Tanggal Surat</th>
           <th>Status</th>
           <th>Keterangan</th>
-          <th>Action</th>
+          <!-- <th>Action</th> -->
         </tr>
       </thead>
 
@@ -69,7 +69,7 @@
 	          	<?php } ?>
 	          </td>
 	          <td><?php echo $surat->keterangan; ?></td>
-	          <td>
+	          <!--<td>
               <?php if ($surat->final == 0) { ?>
 	          	<div>
 	          		<a href="/surat/finalize?no=<?php echo $surat->no; ?>" class="btn btn-default btn-xs btn-success">Finalisasi</a>
@@ -78,7 +78,7 @@
 	          		<a href="/surat/update?barcode=<?php echo $surat->barcode; ?>" class="btn btn-default btn-xs">Update</a>
 	          	</div>
               <?php } ?>
-	          </td>
+	          </td>-->
 	        </tr>
       	<?php } ?>
       </tbody>

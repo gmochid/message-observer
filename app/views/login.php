@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>Aplikasi Kontrol Surat</title>
+	<title>Mailon</title>
 	<script type="text/javascript" src="<?php echo asset('lib/js/jquery-1.10.2.min.js'); ?>"></script>
 
 	<link href="<?php echo asset('lib/css/bootstrap.min.css')?>" rel="stylesheet">
@@ -16,7 +16,7 @@
 	        action="<?php echo url('/login'); ?>">
 
 	        <div class="text-center">
-	          <h2>Aplikasi Kontrol Surat</h2>
+	          <h2>Mailon</h2>
 	          <!-- <a href="/">Home (Live Update)</a> -->
 	          <br/>
 	          <br/>
