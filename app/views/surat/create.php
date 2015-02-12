@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>Mailon</title>
+	<title>Aplikasi Kontrol Surat</title>
 	<script type="text/javascript" src="<?php echo asset('lib/js/jquery-1.10.2.min.js'); ?>"></script>
 
 	<link href="<?php echo asset('lib/css/bootstrap.min.css')?>" rel="stylesheet">
@@ -15,7 +15,7 @@
 <body>
 	<div class="container">
 		<div class="page-header">
-		  <h1><a href="/dashboard">Mailon</a> <small>Input Surat Baru</small></h1>
+		  <h1><a href="/dashboard">Aplikasi Kontrol Surat</a> <small>Input Surat Baru</small></h1>
 		</div>
 
     <form action="/surat/create" method="post">
@@ -30,16 +30,6 @@
     		<div class="form-group">
           <label>Nomor Surat</label>
           <input type="text" class="form-control" name="no" />
-        </div>
-
-        <div class="form-group">
-          <label>Alamat Email</label>
-          <input type="text" class="form-control" name="email" />
-        </div>
-
-        <div class="form-group">
-          <label>Barcode</label>
-          <input type="text" class="form-control" name="barcode" />
         </div>
 
         <div class="form-group">

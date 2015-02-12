@@ -1,23 +1,4 @@
 <?php
-include_once app_path() . "/oauth/library/OAuthStore.php";
-include_once app_path() . "/oauth/library/OAuthRequester.php";
- 
-define("CONSUMER_KEY", "bestapp262");
-define("CONSUMER_SECRET", "UJHSG");
-define("OAUTH_HOST", "http://sandbox.appprime.net");
-define("REQUEST_TOKEN_URL", OAUTH_HOST."/TemanDev/rest/RequestToken/");
-define("ACCESS_TOKEN_URL", OAUTH_HOST."/TemanDev/rest/AccessToken/");
-
-// Init the OAuthStore
-$options = array(
-'consumer_key' => CONSUMER_KEY,
-'consumer_secret' => CONSUMER_SECRET,
-'server_uri' => OAUTH_HOST,
-'request_token_uri' => REQUEST_TOKEN_URL,
-'access_token_uri' => ACCESS_TOKEN_URL
-);
-// Note: do not use "Session" storage in production. Prefer a database storage, such as MySQL.
-OAuthStore::instance("Session", $options);
 
 class SuratController extends BaseController {
 
@@ -64,14 +45,12 @@ class SuratController extends BaseController {
 
 		$surat 	= new Surat;
 		$surat->no 				= Input::get('no', '');
-		$surat->email 			= Input::get('email', '');
-		$surat->barcode 		= Input::get('barcode', '');
 		$surat->perihal 		= Input::get('perihal', '');
 		$surat->asal 			= Input::get('asal', '');
 		$surat->keterangan 		= Input::get('keterangan', '');
 		$surat->final 			= 0;
 
-		if (($surat->no == '') || ($surat->email == '') || ($surat->barcode == '') || ($surat->perihal == '') || ($surat->asal == ''))
+		if (($surat->no == '') || ($surat->perihal == '') || ($surat->asal == ''))
 		{
 			return View::make('surat.create', array('error' => 'Nomor, email, barcode, perihal dan asal tidak boleh kosong'));
 		}
@@ -115,8 +94,6 @@ class SuratController extends BaseController {
 		);
 		
 		$email = Input::get('email', '');
-		// $this->sendEmail($data, $email);
-		$this->sendEmailTelkom($data, $email);
 
 		return Redirect::to('/dashboard');
 	}
@@ -147,42 +124,6 @@ class SuratController extends BaseController {
 		Mail::send('emails.notif', $data, function($message) use ($email) {			
 		    $message->to($email, '')->subject('Mailon Update');
 		});		
-	}
-
-	public function sendEmailTelkom($data, $email) {
-		try
-		{
-			// STEP 1: If we do not have an OAuth token yet, go get one
-			$getAuthTokenParams = null;
-			// get a request token	& request token secret	
-			$tokenResultParams = OAuthRequester::requestRequestToken(CONSUMER_KEY, 0, $getAuthTokenParams);	
-			// STEP 2: Get an access token & access token secret
-			try {		
-				OAuthRequester::requestAccessToken(CONSUMER_KEY, $tokenResultParams["token"], 0, 'POST');						
-			} catch (OAuthException2 $e) {
-				print_r($e);
-				return;
-			}
-
-			 // make the docs request.
-		    $urlAPI = OAUTH_HOST.'/TemanDev/rest/sendEmail/';
-		    $opt = array(CURLOPT_HTTPHEADER=>array('Content-Type: application/json'));
-		    // $email = "msmaromi@gmail.com";
-		    $content = "Dear pengirim, Surat anda telah sampai di ";
-		    $body = '{"sendEmail":{"to":"' . $email . '","subject":"coba","content":"' . $content . '"}}';
-		    $request = new OAuthRequester($urlAPI,'POST',$tokenResultParams,$body);
-		    echo 'execute api..';
-		    $result = $request->doRequest(0,$opt);
-		    if ($result['code'] == 200) {
-		            echo $result['body'];
-		    }
-		    else {
-		            echo 'Error: '.$result['code'];
-		    }
-		} catch(OAuthException2 $e) {
-			echo "OAuthException: " . $e->getMessage();
-			var_dump($e);
-		}
 	}
 
 }

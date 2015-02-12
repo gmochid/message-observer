@@ -37,8 +37,6 @@ class AllTable extends Migration {
 		Schema::create('surat',function($table)
 		{
 			$table->string('no')->unique();
-			$table->string('email');
-			$table->string('barcode');
 			$table->string('perihal');
 			$table->string('asal');
 			$table->string('keterangan');

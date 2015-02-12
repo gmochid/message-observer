@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>Mailon</title>
+	<title>Aplikasi Kontrol Surat</title>
 	<script type="text/javascript" src="<?php echo asset('lib/js/jquery-1.10.2.min.js'); ?>"></script>
 
 	<link href="<?php echo asset('lib/css/bootstrap.min.css')?>" rel="stylesheet">
@@ -16,7 +16,7 @@
 <body>
 	<div class="container">
 		<div class="page-header">
-		  <h1><a href="/dashboard"><img src="<?php echo asset('lib/img/logo.jpg')?>" width="200"></a> <small>Dashboard</small></h1>
+		  <h1>Aplikasi Kontrol Surat <small>Dashboard</small></h1>
       <!-- <a href="/">Home (Live Update)</a><br/> -->
       <div class="loujien">
         <a href="/logout">Logout</a>
