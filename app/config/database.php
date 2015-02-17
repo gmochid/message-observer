@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'observer',
+			'database'  => 'observers',
 			'username'  => 'observer-user',
 			'password'  => 'observer-password',
 			'charset'   => 'utf8',

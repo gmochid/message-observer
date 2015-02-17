@@ -14,7 +14,7 @@ class SuratController extends BaseController {
 
 	public function showUpdate()
 	{
-		$surat = Surat::where('barcode', '=', Input::get('barcode', ''))->first();
+		$surat = Surat::where('no', '=', Input::get('no', ''))->first();
 		if($surat == null)
 		{
 			return Redirect::to('/dashboard');
@@ -73,7 +73,7 @@ class SuratController extends BaseController {
 
 	public function update()
 	{
-		$surat = Surat::where('barcode', '=', Input::get('barcode', ''))->first();
+		$surat = Surat::where('no', '=', Input::get('no', ''))->first();
 		if($surat == null)
 		{
 			return View::make('surat.update', array('error' => 'Nomor surat tidak ditemukan'));

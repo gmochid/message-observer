@@ -55,9 +55,9 @@ class AllTable extends Migration {
 			$table->integer('status_id');
 			$table->timestamps();
 
-			$table->foreign('status_id')->references('status_id')->on('status');
-			$table->foreign('no')->references('no')->on('surat');
-			$table->foreign('username')->references('username')->on('user');
+			$table->foreign('status_id')->references('status_id')->on('status')->onDelete('cascade');
+			$table->foreign('no')->references('no')->on('surat')->onDelete('cascade');
+			$table->foreign('username')->references('username')->on('user')->onDelete('cascade');
 			$table->engine = 'InnoDB';
 		});
 	}

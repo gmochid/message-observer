@@ -31,7 +31,7 @@ return array(
             'title' => 'Username'
         ),
         'nickname' => array(
-            'title' => 'Email',
+            'title' => 'Nickname',
         ),
         'created_at' => array(
             'title' => 'Waktu Didaftarkan',
@@ -56,7 +56,7 @@ return array(
             'type' => 'password',
         ),
         'nickname' => array(
-            'title' => 'Nama Lengkap',
+            'title' => 'Nickname',
             'type' => 'text',
         ),
     ),
