@@ -23,6 +23,8 @@ class Surat extends Eloquent {
 
 	protected $hidden = array();
 
+	protected $dates = ['created_at', 'updated_at', 'tanggal'];
+
 	public function logs()
 	{
 		return $this->hasMany('Logs', 'no', 'no');

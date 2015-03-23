@@ -40,6 +40,7 @@ class AllTable extends Migration {
 			$table->string('perihal');
 			$table->string('asal');
 			$table->string('keterangan');
+			$table->date('tanggal');
 			$table->integer('final');
 			$table->timestamps();
 

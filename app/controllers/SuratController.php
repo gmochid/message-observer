@@ -48,11 +48,12 @@ class SuratController extends BaseController {
 		$surat->perihal 		= Input::get('perihal', '');
 		$surat->asal 			= Input::get('asal', '');
 		$surat->keterangan 		= Input::get('keterangan', '');
+		$surat->tanggal 		= Carbon\Carbon::createFromFormat('d/m/Y', Input::get('tanggal', ''));
 		$surat->final 			= 0;
 
 		if (($surat->no == '') || ($surat->perihal == '') || ($surat->asal == ''))
 		{
-			return View::make('surat.create', array('error' => 'Nomor, email, barcode, perihal dan asal tidak boleh kosong'));
+			return View::make('surat.create', array('error' => 'Nomor, email, perihal, tanggal dan asal tidak boleh kosong'));
 		}
 
 		try{

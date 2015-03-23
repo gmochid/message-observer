@@ -39,6 +39,9 @@ return array(
         'keterangan' => array(
             'title' => 'Keterangan',
         ),
+        'tanggal' => array(
+            'title' => 'Tanggal Surat',
+        ),
         'final' => array(
             'title' => 'Final',
         ),
@@ -64,6 +67,10 @@ return array(
         'keterangan' => array(
             'title' => 'Keterangan',
             'type' => 'text',
+        ),
+        'tanggal' => array(
+            'title' => 'Tanggal Surat',
+            'type' => 'date',
         ),
         'final' => array(
             'title' => 'Final',

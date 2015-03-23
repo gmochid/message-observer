@@ -53,7 +53,7 @@
 	          <td><?php echo $surat->no; ?></td>
 	          <td><?php echo $surat->perihal; ?></td>
 	          <td><?php echo $surat->asal; ?></td>
-	          <td><?php echo strtok($surat->created_at, " "); ?></td>
+	          <td><?php echo $surat->tanggal; ?></td>
 	          <td>
               <?php
                 $i=sizeof($surat->logs)-1;

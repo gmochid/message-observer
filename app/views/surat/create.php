@@ -2,10 +2,12 @@
 <html>
 <head>
 	<title>Aplikasi Kontrol Surat</title>
-	<script type="text/javascript" src="<?php echo asset('lib/js/jquery-1.10.2.min.js'); ?>"></script>
-
-	<link href="<?php echo asset('lib/css/bootstrap.min.css')?>" rel="stylesheet">
-	<script type="text/javascript" src="<?php echo asset('lib/js/bootstrap.min.js') ?>"></script>
+  <script type="text/javascript" src="<?php echo asset('lib/js/jquery/dist/jquery.min.js'); ?>"></script>
+  <script type="text/javascript" src="<?php echo asset('lib/js/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
+  <script type="text/javascript" src="<?php echo asset('lib/js/moment/min/moment.min.js'); ?>"></script>
+  <script type="text/javascript" src="<?php echo asset('lib/js/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'); ?>"></script>
+  <link rel="stylesheet" href="<?php echo asset('lib/js/bootstrap/dist/css/bootstrap.min.css')?> " />
+  <link rel="stylesheet" href="<?php echo asset('lib/js/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')?> " />
   
   <style type="text/css">
     table.fixed { table-layout:fixed; }
@@ -43,6 +45,14 @@
         </div>
 
         <div class="form-group">
+          <label>Tanggal Surat</label>
+          <div class=" input-group date" id='datetimepicker-tanggal'>
+            <input type="text" class="form-control" name="tanggal" />
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
           <label>Keterangan</label>
           <input type="text" class="form-control" name="keterangan" />
         </div>
@@ -61,5 +71,13 @@
     </div>
     <?php } ?>
 	</div>
+
+  <script type="text/javascript">
+    $(function () {
+      $('#datetimepicker-tanggal').datetimepicker({
+        format: 'DD/MM/YYYY'
+      });
+    });
+  </script>
 </body>
 </html>
