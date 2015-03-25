@@ -2,10 +2,10 @@
 <html>
 <head>
 	<title>Aplikasi Kontrol Surat</title>
-	<script type="text/javascript" src="<?php echo asset('lib/js/jquery/dist/jquery.min.js'); ?>"></script>
+  <script type="text/javascript" src="<?php echo asset('lib/js/jquery/dist/jquery.min.js'); ?>"></script>
 
-	<link href="<?php echo asset('lib/css/bootstrap.min.css')?>" rel="stylesheet">
-	<script type="text/javascript" src="<?php echo asset('lib/js/bootstrap.min.js') ?>"></script>
+  <link href="<?php echo asset('lib/js/bootstrap/dist/css/bootstrap.min.css')?>" rel="stylesheet">
+  <script type="text/javascript" src="<?php echo asset('lib/js/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
 
   <style type="text/css">
     table.fixed { table-layout:fixed; }
@@ -86,6 +86,9 @@
 	          	<div>
 	          		<a href="/surat/finalize?no={{ $surat->no }}" class="btn btn-default btn-xs btn-success">Finalisasi</a>
 	          	</div>
+              <div>
+                <a href="/surat/edit?no={{ $surat->no }}" class="btn btn-default btn-xs">Edit</a>
+              </div>
 	          	<div>
 	          		<a href="/surat/update?no={{ $surat->no }}" class="btn btn-default btn-xs">Update</a>
 	          	</div>

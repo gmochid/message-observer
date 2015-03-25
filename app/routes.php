@@ -22,5 +22,7 @@ Route::get 	  ('/surat/create',					'SuratController@showCreate');
 Route::post   ('/surat/create',					'SuratController@create');
 Route::get 	  ('/surat/update',					'SuratController@showUpdate');
 Route::post   ('/surat/update',					'SuratController@update');
+Route::get 	  ('/surat/edit',					'SuratController@showEdit');
+Route::post   ('/surat/edit',					'SuratController@edit');
 Route::get 	  ('/surat/finalize',				'SuratController@showFinalize');
 Route::post   ('/surat/finalize',				'SuratController@finalize');

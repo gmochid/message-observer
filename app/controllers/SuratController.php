@@ -12,24 +12,23 @@ class SuratController extends BaseController {
 		return View::make('surat.create');
 	}
 
+	public function showEdit()
+	{
+		$surat = Surat::getSuratFromRequest();
+
+		return View::make('surat.edit', array('surat' => $surat));
+	}
+
 	public function showUpdate()
 	{
-		$surat = Surat::where('no', '=', Input::get('no', ''))->first();
-		if($surat == null)
-		{
-			return Redirect::to('/dashboard');
-		}
+		$surat = Surat::getSuratFromRequest();
 
 		return View::make('surat.update', array('surat' => $surat, 'allStatus' => Status::all()));
 	}
 
 	public function showFinalize()
 	{
-		$surat = Surat::where('no', '=', Input::get('no', ''))->first();
-		if($surat == null)
-		{
-			return Redirect::to('/dashboard');
-		}
+		$surat = Surat::getSuratFromRequest();
 
 		return View::make('surat.finalize', array('surat' => $surat));
 	}
@@ -119,12 +118,6 @@ class SuratController extends BaseController {
 		$log->save();
 
 		return Redirect::to('/dashboard');
-	}
-
-	public function sendEmail($data, $email) {
-		Mail::send('emails.notif', $data, function($message) use ($email) {			
-		    $message->to($email, '')->subject('Mailon Update');
-		});		
 	}
 
 }
