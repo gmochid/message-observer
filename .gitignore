@@ -1,6 +1,7 @@
 /bootstrap/compiled.php
 /app/config/database.php
 /public/packages/frozennode
+/public/lib/js
 /vendor
 composer.phar
 .env.*.php
