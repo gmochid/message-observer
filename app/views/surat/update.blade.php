@@ -27,38 +27,37 @@
 
       <div class="panel-body">
 
-        <input type="hidden" class="form-control" name="barcode" value="<?php echo $surat->barcode; ?>" />
-        <input type="hidden" class="form-control" name="email" value="<?php echo $surat->email; ?>" />
+        <input type="hidden" class="form-control" name="barcode" value="{{ $surat->barcode }}" />
+        <input type="hidden" class="form-control" name="email" value="{{ $surat->email }}" />
 
     		<div class="form-group">
           <label>Nomor Surat</label>
-          <input readonly type="text" class="form-control" name="no" value="<?php echo $surat->no; ?>" />
+          <input readonly type="text" class="form-control" name="no" value="{{ $surat->no }}" />
         </div>
 
         <div class="form-group">
           <label>Perihal</label>
-          <input readonly type="text" class="form-control" name="perihal" value="<?php echo $surat->perihal; ?>" />
+          <input readonly type="text" class="form-control" name="perihal" value="{{ $surat->perihal }}" />
         </div>
 
         <div class="form-group">
           <label>Asal</label>
-          <input readonly type="text" class="form-control" name="asal" value="<?php echo $surat->asal; ?>" />
+          <input readonly type="text" class="form-control" name="asal" value="{{ $surat->asal }}" />
         </div>
 
         <div class="form-group">
           <label>Keterangan</label>
-          <input type="text" class="form-control" name="keterangan" value="<?php echo $surat->keterangan; ?>" />
+          <input type="text" class="form-control" name="keterangan" value="{{ $surat->keterangan }}" />
         </div>
 
         <div class="form-group">
           <label>Status</label>
           <select class="form-control" name="status">
-            <?php 
-            foreach ($allStatus as $status) { 
-              if($status->status_id != 0) {
-              ?>
-            <option value="<?php echo $status->status_id ?>"><?php echo $status->detail; ?></option>
-            <?php } } ?>
+            @foreach ($allStatus as $status)
+              @if ($status->status_id != 0)
+              <option value="{{ $status->status_id }}">{{ $status->detail }}</option>
+              @endif
+            @endforeach
           </select>
         </div>
 
@@ -68,13 +67,13 @@
     </div>
     </form>
 
-    <?php if(isset($error)) { ?>
+    @if (isset($error))
     <div class="panel panel-danger">
       <div class="panel-heading">
-        <?php echo $error; ?>
+        {{ $error }}
       </div>
     </div>
-    <?php } ?>
+    @endif
 	</div>
 </body>
 </html>

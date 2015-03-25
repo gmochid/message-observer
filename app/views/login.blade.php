@@ -13,7 +13,7 @@
 			<div class="col-md-offset-2 col-md-8">
 
 	      <form id="login-form" role="form" class="form-horizontal" method="post"
-	        action="<?php echo url('/login'); ?>">
+	        action="{{ url('/login') }}">
 
 	        <div class="text-center">
 	          <h2>Aplikasi Kontrol Surat</h2>

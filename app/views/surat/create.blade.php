@@ -63,13 +63,13 @@
     </div>
     </form>
 
-    <?php if(isset($error)) { ?>
+    @if (isset($error))
     <div class="panel panel-danger">
       <div class="panel-heading">
-        <?php echo $error; ?>
+        {{ $error }}
       </div>
     </div>
-    <?php } ?>
+    @endif
 	</div>
 
   <script type="text/javascript">

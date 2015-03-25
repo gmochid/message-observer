@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Aplikasi Kontrol Surat</title>
-	<script type="text/javascript" src="<?php echo asset('lib/js/jquery-1.10.2.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo asset('lib/js/jquery/dist/jquery.min.js'); ?>"></script>
 
 	<link href="<?php echo asset('lib/css/bootstrap.min.css')?>" rel="stylesheet">
 	<script type="text/javascript" src="<?php echo asset('lib/js/bootstrap.min.js') ?>"></script>
@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="page-header">
 		  <h1>Aplikasi Kontrol Surat <small>Dashboard</small></h1>
-      <!-- <a href="/">Home (Live Update)</a><br/> -->
+      <a href="/">Home (Live Update)</a><br/>
       <div class="loujien">
         <a href="/logout">Logout</a>
       </div>
@@ -26,9 +26,16 @@
     <div>
       <form method="get" action="/dashboard">
         Pencarian
-        <input type="text" name="query" value="<?php echo Input::get('query'); ?>" />
-        <button type="submit" class="btn btn-default">Search</button>
+        <input type="text" name="query" value="{{ Input::get('query') }}" />
+        <button type="submit" class="btn btn-default">Cari</button>
       </form>
+
+      @if (Input::get('query') != '')
+      <form method="get" action="/dashboard">
+        <button type="submit" class="btn btn-default">Hapus Pencarian</button>
+      </form>
+      @endif
+      
       <a class="btn btn-info" href="/surat/create">Input Surat Baru</a>
     </div>
 
@@ -55,37 +62,37 @@
       </thead>
 
       <tbody>
-      	<?php foreach ($allSurat as $surat) { ?>
+        @foreach ($allSurat as $surat)
 	        <tr>
-	          <td><?php echo $surat->no; ?></td>
-	          <td><?php echo $surat->perihal; ?></td>
-	          <td><?php echo $surat->asal; ?></td>
-	          <td><?php echo $surat->tanggal->format('d F Y'); ?></td>
+	          <td>{{ $surat->no }}</td>
+	          <td>{{ $surat->perihal }}</td>
+	          <td>{{ $surat->asal }}</td>
+	          <td>{{ $surat->tanggal->format('d F Y') }}</td>
 	          <td>
               <?php
                 $i=sizeof($surat->logs)-1;
                 $log = $surat->logs[$i];
                 $i--;
               ?>
-              <div><b><?php echo strtok($log->created_at, " "); ?>, <?php echo $log->user->nickname; ?>, <?php echo $log->status->detail; ?></b></div>
+              <div><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
 	          	<?php for ($i=$i; $i >= 0; $i--) { ?>
                 <?php $log = $surat->logs[$i]; ?>
-	          		<div><font color="D0D0D0"><?php echo strtok($log->created_at, " "); ?>, <?php echo $log->user->nickname; ?>, <?php echo $log->status->detail; ?></font></div>
+                <div><font color="D0D0D0"><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
 	          	<?php } ?>
 	          </td>
-	          <td><?php echo $surat->keterangan; ?></td>
+	          <td>{{ $surat->keterangan }}</td>
 	          <td>
-              <?php if ($surat->final == 0) { ?>
+              @if ($surat->final === 0)
 	          	<div>
-	          		<a href="/surat/finalize?no=<?php echo $surat->no; ?>" class="btn btn-default btn-xs btn-success">Finalisasi</a>
+	          		<a href="/surat/finalize?no={{ $surat->no }}" class="btn btn-default btn-xs btn-success">Finalisasi</a>
 	          	</div>
 	          	<div>
-	          		<a href="/surat/update?no=<?php echo $surat->no; ?>" class="btn btn-default btn-xs">Update</a>
+	          		<a href="/surat/update?no={{ $surat->no }}" class="btn btn-default btn-xs">Update</a>
 	          	</div>
-              <?php } ?>
+              @endif
 	          </td>
 	        </tr>
-      	<?php } ?>
+        @endforeach
       </tbody>
     </table>
     </div>

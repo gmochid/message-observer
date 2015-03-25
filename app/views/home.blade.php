@@ -30,9 +30,15 @@
     <div>
       <form method="get" action="/">
         Pencarian
-        <input type="text" name="query" value="<?php echo Input::get('query'); ?>" />
-        <button type="submit" class="btn btn-default">Search</button>
+        <input type="text" name="query" value="{{ Input::get('query') }}" />
+        <button type="submit" class="btn btn-default">Cari</button>
       </form>
+
+      @if (Input::get('query') != '')
+      <form method="get" action="/dashboard">
+        <button type="submit" class="btn btn-default">Hapus Pencarian</button>
+      </form>
+      @endif
     </div>
 
 		<div>
@@ -56,27 +62,27 @@
       </thead>
 
       <tbody>
-      	<?php foreach ($allSurat as $surat) { ?>
-	        <tr>
-	          <td><?php echo $surat->no; ?></td>
-	          <td><?php echo $surat->perihal; ?></td>
-	          <td><?php echo $surat->asal; ?></td>
-            <td><?php echo $surat->tanggal->format('d F Y'); ?></td>
-	          <td>
+        @foreach ($allSurat as $surat)
+          <tr>
+            <td>{{ $surat->no }}</td>
+            <td>{{ $surat->perihal }}</td>
+            <td>{{ $surat->asal }}</td>
+            <td>{{ $surat->tanggal->format('d F Y') }}</td>
+            <td>
               <?php
                 $i=sizeof($surat->logs)-1;
                 $log = $surat->logs[$i];
                 $i--;
               ?>
-              <div><b><?php echo strtok($log->created_at, " "); ?>, <?php echo $log->user->nickname; ?>, <?php echo $log->status->detail; ?></b></div>
-	          	<?php for ($i=$i; $i >= 0; $i--) { ?>
-                <?php $log = $surat->logs[$i] ?>
-	          		<div><font color="D0D0D0"><?php echo strtok($log->created_at, " "); ?>, <?php echo $log->user->nickname; ?>, <?php echo $log->status->detail; ?></font></div>
-	          	<?php } ?>
-	          </td>
-	          <td><?php echo $surat->keterangan; ?></td>
-	        </tr>
-      	<?php } ?>
+              <div><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
+              <?php for ($i=$i; $i >= 0; $i--) { ?>
+                <?php $log = $surat->logs[$i]; ?>
+                <div><font color="D0D0D0"><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
+              <?php } ?>
+            </td>
+            <td>{{ $surat->keterangan }}</td>
+          </tr>
+        @endforeach
       </tbody>
     </table>
     </div>
