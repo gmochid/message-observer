@@ -29,4 +29,23 @@ class Surat extends Eloquent {
 	{
 		return $this->hasMany('Logs', 'no', 'no');
 	}
+
+	public static function getSuratFromQuery()
+	{
+		$query = Input::get('query', '');
+
+		if($query == '')
+		{
+			return Surat::all();
+		}
+		else 
+		{
+			$surat = new Surat();
+			$columns = Schema::getColumnListing($surat->table);
+			return Surat::where('no', 'like', '%'.$query.'%')
+						->orWhere('perihal', 'like', '%'.$query.'%')
+						->orWhere('asal', 'like', '%'.$query.'%')
+						->get();
+		}
+	}
 }

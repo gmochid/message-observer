@@ -24,6 +24,11 @@
 		</div>
 
     <div>
+      <form method="get" action="/dashboard">
+        Pencarian
+        <input type="text" name="query" value="<?php echo Input::get('query'); ?>" />
+        <button type="submit" class="btn btn-default">Search</button>
+      </form>
       <a class="btn btn-info" href="/surat/create">Input Surat Baru</a>
     </div>
 
@@ -55,7 +60,7 @@
 	          <td><?php echo $surat->no; ?></td>
 	          <td><?php echo $surat->perihal; ?></td>
 	          <td><?php echo $surat->asal; ?></td>
-	          <td><?php echo $surat->tanggal; ?></td>
+	          <td><?php echo $surat->tanggal->format('d F Y'); ?></td>
 	          <td>
               <?php
                 $i=sizeof($surat->logs)-1;
