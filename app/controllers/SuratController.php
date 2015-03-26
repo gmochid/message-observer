@@ -71,6 +71,24 @@ class SuratController extends BaseController {
 		return Redirect::to('/dashboard');
 	}
 
+	public function edit()
+	{
+		$surat = Surat::where('no', '=', Input::get('no', ''))->first();
+		if($surat == null)
+		{
+			return View::make('surat.update', array('error' => 'Nomor surat tidak ditemukan'));
+		}		
+
+		$surat->no				= Input::get('no', $surat->no);
+		$surat->perihal			= Input::get('perihal', $surat->perihal);
+		$surat->asal			= Input::get('asal', $surat->asal);
+		$surat->tanggal			= Carbon\Carbon::createFromFormat('d/m/Y', Input::get('tanggal', ''));
+		$surat->keterangan		= Input::get('keterangan', $surat->keterangan);
+		$surat->save();
+
+		return Redirect::to('/dashboard');
+	}
+
 	public function update()
 	{
 		$surat = Surat::where('no', '=', Input::get('no', ''))->first();
@@ -100,11 +118,7 @@ class SuratController extends BaseController {
 
 	public function finalize()
 	{
-		$surat = Surat::where('no', '=', Input::get('no', ''))->first();
-		if($surat == null)
-		{
-			return Redirect::to('/dashboard');
-		}
+		$surat = Surat::getSuratFromRequest();
 
 		$surat->keterangan		= Input::get('keterangan', $surat->keterangan);
 		$surat->final 			= 1;
