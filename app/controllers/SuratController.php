@@ -14,21 +14,21 @@ class SuratController extends BaseController {
 
 	public function showEdit()
 	{
-		$surat = Surat::getSuratFromRequest();
+		$surat = Surat::where('no', '=', Input::get('no', ''))->firstOrFail();
 
 		return View::make('surat.edit', array('surat' => $surat));
 	}
 
 	public function showUpdate()
 	{
-		$surat = Surat::getSuratFromRequest();
+		$surat = Surat::where('no', '=', Input::get('no', ''))->firstOrFail();
 
 		return View::make('surat.update', array('surat' => $surat, 'allStatus' => Status::all()));
 	}
 
 	public function showFinalize()
 	{
-		$surat = Surat::getSuratFromRequest();
+		$surat = Surat::where('no', '=', Input::get('no', ''))->firstOrFail();
 
 		return View::make('surat.finalize', array('surat' => $surat));
 	}
@@ -73,11 +73,7 @@ class SuratController extends BaseController {
 
 	public function edit()
 	{
-		$surat = Surat::where('no', '=', Input::get('no', ''))->first();
-		if($surat == null)
-		{
-			return View::make('surat.update', array('error' => 'Nomor surat tidak ditemukan'));
-		}		
+		$surat = Surat::where('no', '=', Input::get('no', ''))->firstOrFail();
 
 		$surat->no				= Input::get('no', $surat->no);
 		$surat->perihal			= Input::get('perihal', $surat->perihal);
@@ -118,7 +114,7 @@ class SuratController extends BaseController {
 
 	public function finalize()
 	{
-		$surat = Surat::getSuratFromRequest();
+		$surat = Surat::where('no', '=', Input::get('no', ''))->firstOrFail();
 
 		$surat->keterangan		= Input::get('keterangan', $surat->keterangan);
 		$surat->final 			= 1;

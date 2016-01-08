@@ -80,15 +80,4 @@ class Surat extends Eloquent {
 
 		return $surat->paginate(10);
 	}
-
-	public static function getSuratFromRequest()
-	{
-		$surat = Surat::where('no', '=', Input::get('no', ''))->first();
-		if($surat == null)
-		{
-			return Redirect::to('/dashboard');
-		}
-
-		return $surat;
-	}
 }

@@ -1,11 +1,11 @@
 <!doctype html>
 <html>
 <head>
-	<title>Aplikasi Kontrol Surat</title>
+  <title>Aplikasi Kontrol Surat</title>
   <script type="text/javascript" src="<?php echo asset('lib/js/jquery/dist/jquery.min.js'); ?>"></script>
 
-	<link href="<?php echo asset('lib/js/bootstrap/dist/css/bootstrap.min.css')?>" rel="stylesheet">
-	<script type="text/javascript" src="<?php echo asset('lib/js/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
+  <link href="<?php echo asset('lib/js/bootstrap/dist/css/bootstrap.min.css')?>" rel="stylesheet">
+  <script type="text/javascript" src="<?php echo asset('lib/js/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
 
   <style type="text/css">
     table.fixed { table-layout:fixed; }
@@ -14,8 +14,8 @@
   </style>
 </head>
 <body>
-	<div class="container">
-		<div class="page-header">
+  <div class="container">
+    <div class="page-header">
       <h1>Aplikasi Kontrol Surat <small>Live Update</small></h1>
       @if (Auth::check())
       <a href="/dashboard">Dashboard</a><br/>
@@ -65,11 +65,11 @@
       </div>
     </div>
 
-  	<div class="text-center">
+    <div class="text-center">
       <?php echo $allSurat->appends(Input::except('page'))->links(); ?>
     </div>
 
-		<div class="table-responsive">
+    <div class="table-responsive">
     <table class="table table-striped">
       @foreach ($allSurat as $index=>$surat)
       <tr>
@@ -97,7 +97,7 @@
             </div>
 
             <div class="col-md-4">
-							@if (sizeof($surat->logs) > 0)
+              @if (sizeof($surat->logs) > 0)
               <?php
                 $i=sizeof($surat->logs)-1;
                 $log = $surat->logs[$i];
@@ -108,7 +108,7 @@
                 <?php $log = $surat->logs[$i]; ?>
                 <div><font color="D0D0D0"><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
               <?php } ?>
-							@endif
+              @endif
             </div>
 
           </div>
@@ -118,7 +118,7 @@
     </table>
     </div>
 
-	</div>
+  </div>
 </body>
 
 <script type="text/javascript">

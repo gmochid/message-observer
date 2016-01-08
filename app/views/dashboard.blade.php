@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>Aplikasi Kontrol Surat</title>
+  <title>Aplikasi Kontrol Surat</title>
   <script type="text/javascript" src="<?php echo asset('lib/js/jquery/dist/jquery.min.js'); ?>"></script>
 
   <link href="<?php echo asset('lib/js/bootstrap/dist/css/bootstrap.min.css')?>" rel="stylesheet">
@@ -21,35 +21,85 @@
   </style>
 </head>
 <body>
-	<div class="container">
-		<div class="page-header">
-		  <h1>Aplikasi Kontrol Surat <small>Dashboard</small></h1>
+  <div class="container">
+    <div class="page-header">
+      <h1>Aplikasi Kontrol Surat <small>Dashboard</small></h1>
       <a href="/">Home (Live Update)</a><br/>
       <div class="loujien">
         <a href="/logout">Logout</a>
       </div>
-		</div>
+    </div>
 
-	<div class="row">
+  <div class="row">
   <div class="col-md-2 panel panel-default">
-  	<div class="panel-body">
+    <div class="panel-body">
         <a class="btn btn-info" href="/surat/create">Input Surat Baru</a>
-  	</div>
+    </div>
   </div>
 
-	<div class="col-md-8">
+  <div class="col-md-8">
     <form method="get" action="/dashboard">
       <div class="panel panel-default">
 
         <div class="panel-body">
+
+          <div class="row">
+            <div class="col-md-2">
+              <div class="checkbox">
+                <label><input type="checkbox" value="1" name="from">Dari</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <select class="form-control" name="from-month">
+                  @for($i = 1; $i <= 12; $i++)
+                    <option value="{{$i}}">{{$i}}</option>
+                  @endfor
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <select class="form-control" name="from-year">
+                  @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
+                    <option value="{{$i}}">{{$i}}</option>
+                  @endfor
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="checkbox">
+                <label><input type="checkbox" value="1" name="to">Sampai</label>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <select class="form-control" name="to-month">
+                  @for($i = 1; $i <= 12; $i++)
+                    <option value="{{$i}}">{{$i}}</option>
+                  @endfor
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <select class="form-control" name="to-year">
+                  @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
+                    <option value="{{$i}}">{{$i}}</option>
+                  @endfor
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-md-3">
-              <input class="form-control" type="text" name="query" value="{{ Input::get('query') }}" />
+              <input class="form-control" type="text" name="query" value="{{ Input::get('query') }}" placeholder="Pencarian" />
             </div>
 
             <div class="col-md-3">
               <select class="form-control" name="status">
-                <option value="">Semua</option>
+                <option value="">Semua Status</option>
                 <option value="DONE" {{ Input::get('status') == "DONE" ? "selected" : "" }}>Sudah Final</option>
                 <option value="NOTDONE" {{ Input::get('status') == "NOTDONE" ? "selected" : "" }}>Belum Final</option>
               </select>
@@ -71,11 +121,11 @@
       </div>
 
     </form>
-	</div>
+  </div>
 
-	<div class="text-center">
-		<?php echo $allSurat->appends(Input::except('page'))->links(); ?>
-	</div>
+  <div class="text-center">
+    <?php echo $allSurat->appends(Input::except('page'))->links(); ?>
+  </div>
 
     <div class="table-responsive">
     <table class="table table-striped">
@@ -105,7 +155,7 @@
             </div>
 
             <div class="col-md-4">
-							@if (sizeof($surat->logs) > 0)
+              @if (sizeof($surat->logs) > 0)
               <?php
                 $i=sizeof($surat->logs)-1;
                 $log = $surat->logs[$i];
@@ -116,7 +166,7 @@
                 <?php $log = $surat->logs[$i]; ?>
                 <div><font color="D0D0D0"><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
               <?php } ?>
-							@endif
+              @endif
             </div>
 
             @if ($surat->final == 0)
@@ -150,6 +200,6 @@
     </footer>
 
 
-	</div>
+  </div>
 </body>
 </html>
