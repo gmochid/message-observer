@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class HomeController extends BaseController {
 
 	public function __construct()
@@ -21,7 +23,9 @@ class HomeController extends BaseController {
 
 	public function showDashboard()
 	{
-		$allSurat = Surat::getSuratFromQuery();
+		$allSurat = Surat::fromTanggal(12, 2015);
+		$allSurat = $allSurat->toTanggal(12, 2015);
+		$allSurat = $allSurat->paginate(10);
 
 		return View::make(
 			'dashboard', 

@@ -10,7 +10,6 @@
   <style type="text/css">
     table.fixed { table-layout:fixed; }
     table.fixed td { overflow: hidden; }
-    loujien {text-align: right; text-size: 32px;}
 
     .table-responsive {
       overflow-x: visible !important;
@@ -22,6 +21,7 @@
 </head>
 <body>
   <div class="container">
+
     <div class="page-header">
       <h1>Aplikasi Kontrol Surat <small>Dashboard</small></h1>
       <a href="/">Home (Live Update)</a><br/>
@@ -30,167 +30,154 @@
       </div>
     </div>
 
-  <div class="row">
-  <div class="col-md-2 panel panel-default">
-    <div class="panel-body">
+    <div class="row">
+    <div class="col-md-2 panel panel-default">
+      <div class="panel-body">
         <a class="btn btn-info" href="/surat/create">Input Surat Baru</a>
-    </div>
-  </div>
-
-  <div class="col-md-8">
-    <form method="get" action="/dashboard">
-      <div class="panel panel-default">
-
-        <div class="panel-body">
-
-          <div class="row">
-            <div class="col-md-2">
-              <div class="checkbox">
-                <label><input type="checkbox" value="1" name="from">Dari</label>
-              </div>
+        <hr/>
+        <form method="get" action="/dashboard">
+          <div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="1" name="from">Dari Tanggal</label>
             </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <select class="form-control" name="from-month">
-                  @for($i = 1; $i <= 12; $i++)
-                    <option value="{{$i}}">{{$i}}</option>
-                  @endfor
-                </select>
-              </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <select class="form-control" name="from-month">
+                @for($i = 1; $i <= 12; $i++)
+                  <option value="{{$i}}">{{$i}}</option>
+                @endfor
+              </select>
             </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <select class="form-control" name="from-year">
-                  @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
-                    <option value="{{$i}}">{{$i}}</option>
-                  @endfor
-                </select>
-              </div>
+          </div>
+          <div>
+            <div class="form-group">
+              <select class="form-control" name="from-year">
+                @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
+                  <option value="{{$i}}">{{$i}}</option>
+                @endfor
+              </select>
             </div>
-            <div class="col-md-2">
-              <div class="checkbox">
-                <label><input type="checkbox" value="1" name="to">Sampai</label>
-              </div>
+          </div>
+          <div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="1" name="to">Sampai Tanggal</label>
             </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <select class="form-control" name="to-month">
-                  @for($i = 1; $i <= 12; $i++)
-                    <option value="{{$i}}">{{$i}}</option>
-                  @endfor
-                </select>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <select class="form-control" name="to-year">
-                  @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
-                    <option value="{{$i}}">{{$i}}</option>
-                  @endfor
-                </select>
-              </div>
+          </div>
+          <div class="form-group">
+            <select class="form-control" name="to-month">
+              @for($i = 1; $i <= 12; $i++)
+                <option value="{{$i}}">{{$i}}</option>
+              @endfor
+            </select>
+          </div>
+          <div>
+            <div class="form-group">
+              <select class="form-control" name="to-year">
+                @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
+                  <option value="{{$i}}">{{$i}}</option>
+                @endfor
+              </select>
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-md-3">
-              <input class="form-control" type="text" name="query" value="{{ Input::get('query') }}" placeholder="Pencarian" />
-            </div>
+          <div>
+            <input class="form-control" type="text" name="query" value="{{ Input::get('query') }}" placeholder="Pencarian" />
+          </div>
 
-            <div class="col-md-3">
-              <select class="form-control" name="status">
-                <option value="">Semua Status</option>
-                <option value="DONE" {{ Input::get('status') == "DONE" ? "selected" : "" }}>Sudah Final</option>
-                <option value="NOTDONE" {{ Input::get('status') == "NOTDONE" ? "selected" : "" }}>Belum Final</option>
-              </select>
-            </div>
+          <div>
+            <select class="form-control" name="status">
+              <option value="">Semua Status</option>
+              <option value="DONE" {{ Input::get('status') == "DONE" ? "selected" : "" }}>Sudah Final</option>
+              <option value="NOTDONE" {{ Input::get('status') == "NOTDONE" ? "selected" : "" }}>Belum Final</option>
+            </select>
+          </div>
 
-            <div class="col-md-3">
-              <button type="submit" class="btn btn-primary form-control">Cari</button>
-            </div>
+          <div>
+            <button type="submit" class="btn btn-primary form-control">Cari</button>
+          </div>
 
-            @if (Input::get('query') != '' || Input::get('status') != '')
+          @if (Input::get('query') != '' || Input::get('status') != '')
             <div class="col-md-3">
               <a href="/dashboard" class="btn btn-danger form-control">Hapus Pencarian</a>
             </div>
-            @endif
+          @endif
 
-          </div>
+        </form>
+      </div>
+    </div>
 
-        </div>
+    <div class="col-md-10">
+      <div class="text-center">
+        <?php echo $allSurat->appends(Input::except('page'))->links(); ?>
       </div>
 
-    </form>
-  </div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          @foreach ($allSurat as $index=>$surat)
+            <tr>
+              <td>
+                <div class="row">
 
-  <div class="text-center">
-    <?php echo $allSurat->appends(Input::except('page'))->links(); ?>
-  </div>
+                  <div class="col-md-6">
+                    <div>
+                      <span class="text-primary">{{ $surat->tanggal->format('d F Y') }}</span>
+                      @if ($surat->final == 0)
+                        <span class="label label-primary">Proses</span>
+                      @else
+                        <span class="label label-success">Selesai</span>
+                      @endif
+                    </div>
+                    <div>
+                      <span class="text-muted">{{ $surat->no }}</span>
+                    </div>
+                    <div style="font-size: 16px; font-family: Georgia; font-weight: bold">
+                      {{ $surat->perihal }}
+                    </div>
+                    <div style="font-family: 'Palatino Linotype'">
+                      Asal Surat : {{ $surat->asal }}
+                    </div>
+                  </div>
 
-    <div class="table-responsive">
-    <table class="table table-striped">
-      @foreach ($allSurat as $index=>$surat)
-      <tr>
-        <td>
-          <div class="row">
+                  <div class="col-md-4">
+                    @if (sizeof($surat->logs) > 0)
+                      <?php
+                      $i=sizeof($surat->logs)-1;
+                      $log = $surat->logs[$i];
+                      $i--;
+                      ?>
+                      <div><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
+                      <?php for ($i=$i; $i >= 0; $i--) { ?>
+                      <?php $log = $surat->logs[$i]; ?>
+                      <div style="color: #D0D0D0"><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
+                      <?php } ?>
+                    @endif
+                  </div>
 
-            <div class="col-md-7">
-              <div>
-                <span class="text-primary">{{ $surat->tanggal->format('d F Y') }}</span>
-                @if ($surat->final == 0)
-                <span class="label label-primary">Proses</span>
-                @else
-                <span class="label label-success">Selesai</span>
-                @endif
-              </div>
-              <div>
-                <span class="text-muted">{{ $surat->no }}</span>
-              </div>
-              <div style="font-size: 16px; font-family: Georgia; font-weight: bold">
-                {{ $surat->perihal }}
-              </div>
-              <div style="font-family: 'Palatino Linotype'">
-                Asal Surat : {{ $surat->asal }}
-              </div>
-            </div>
+                  @if ($surat->final == 0)
+                    <div class="col-md-1">
+                      <div class="dropdown">
+                        <button class="btn btn-default dropdown-toogle" id="actionDropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          Action
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="actionDropdown">
+                          <li><a href="/surat/edit?no={{ $surat->no }}">Edit</a></li>
+                          <li><a href="/surat/update?no={{ $surat->no }}">Update Status</a></li>
+                          <li class="divider"></li>
+                          <li><a href="/surat/finalize?no={{ $surat->no }}">Finalisasi</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  @endif
 
-            <div class="col-md-4">
-              @if (sizeof($surat->logs) > 0)
-              <?php
-                $i=sizeof($surat->logs)-1;
-                $log = $surat->logs[$i];
-                $i--;
-              ?>
-              <div><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
-              <?php for ($i=$i; $i >= 0; $i--) { ?>
-                <?php $log = $surat->logs[$i]; ?>
-                <div><font color="D0D0D0"><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
-              <?php } ?>
-              @endif
-            </div>
-
-            @if ($surat->final == 0)
-            <div class="col-md-1">
-              <div class="dropdown">
-                <button class="btn btn-default dropdown-toogle" id="actionDropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Action
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="actionDropdown">
-                  <li><a href="/surat/edit?no={{ $surat->no }}">Edit</a></li>
-                  <li><a href="/surat/update?no={{ $surat->no }}">Update Status</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/surat/finalize?no={{ $surat->no }}">Finalisasi</a></li>
-                </ul>
-              </div>
-            </div>
-            @endif
-
-          </div>
-        </td>
-      </tr>
-      @endforeach
-    </table>
+                </div>
+              </td>
+            </tr>
+          @endforeach
+        </table>
+      </div>
+    </div>
     </div>
 
     <footer class="footer">
@@ -199,7 +186,7 @@
       </div>
     </footer>
 
-
   </div>
+
 </body>
 </html>

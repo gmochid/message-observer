@@ -1,5 +1,8 @@
 <?php
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+
 class Surat extends Eloquent {
 
 	/**
@@ -35,21 +38,19 @@ class Surat extends Eloquent {
 		return $query->where('final', '=', $status);
 	}
 
-	public function scopeQuery($query, $keyword)
+	public function scopePerihal($query, $keyword)
 	{
-		return $query->where('no', 'like', '%'.$keyword.'%')
-					->orWhere('perihal', 'like', '%'.$keyword.'%')
-					->orWhere('asal', 'like', '%'.$keyword.'%');
+		return $query->where('perihal', 'like', '%'.$keyword.'%');
 	}
 
-	public function scopeFrom($query, $from)
+	public function scopeFromTanggal($query, $fromMonth, $fromYear)
 	{
-		return $query->where('created_at', '>=', new DateTime($from));
+		return $query->where('tanggal', '>=', Carbon::createFromDate($fromYear, $fromMonth)->startOfMonth());
 	}
 
-	public function scopeTo($query, $to)
+	public function scopeToTanggal($query, $toMonth, $toYear)
 	{
-		return $query->where('created_at', '<=', new DateTime($to));
+		return $query->where('tanggal', '<=', Carbon::createFromDate($toYear, $toMonth)->endOfMonth());
 	}
 
 	public static function getSuratFromQuery()
