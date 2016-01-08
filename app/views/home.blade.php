@@ -27,48 +27,77 @@
       @endif
     </div>
 
-    <div>
-      <form method="get" action="/">
-        Pencarian
-        <input type="text" name="query" value="{{ Input::get('query') }}" />
-        <button type="submit" class="btn btn-default">Cari</button>
-      </form>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <form method="get" action="/">
+          <div class="panel panel-default">
 
-      @if (Input::get('query') != '')
-      <form method="get" action="/dashboard">
-        <button type="submit" class="btn btn-default">Hapus Pencarian</button>
-      </form>
-      @endif
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3">
+                  <input class="form-control" type="text" name="query" value="{{ Input::get('query') }}" />
+                </div>
+
+                <div class="col-md-3">
+                  <select class="form-control" name="status">
+                    <option value="">Semua</option>
+                    <option value="DONE" {{ Input::get('status') == "DONE" ? "selected" : "" }}>Sudah Final</option>
+                    <option value="NOTDONE" {{ Input::get('status') == "NOTDONE" ? "selected" : "" }}>Belum Final</option>
+                  </select>
+                </div>
+
+                <div class="col-md-3">
+                  <button type="submit" class="btn btn-primary form-control">Cari</button>
+                </div>
+
+                @if (Input::get('query') != '' || Input::get('status') != '')
+                <div class="col-md-3">
+                  <a href="/" class="btn btn-danger form-control">Hapus Pencarian</a>
+                </div>
+                @endif
+
+              </div>
+
+            </div>
+          </div>
+
+        </form>
+      </div>
     </div>
 
-		<div>
-		<table class="table table-striped fixed">
-      <col width="85px"></col>
-      <col width="100px"></col>
-      <col width="100px"></col>
-      <col width="70px"></col>
-      <col width="200px"></col>
-      <col width="100px"></col>
+  	<div class="text-center">
+      <?php echo $allSurat->appends(Input::except('page'))->links(); ?>
+    </div>
 
-      <thead>
-        <tr>
-          <th>No. Surat</th>
-          <th>Perihal</th>
-          <th>Asal Surat</th>
-          <th>Tanggal Surat</th>
-          <th>Status</th>
-          <th>Keterangan</th>
-        </tr>
-      </thead>
+		<div class="table-responsive">
+    <table class="table table-striped">
+      @foreach ($allSurat as $index=>$surat)
+      <tr>
+        <td>
+          <div class="row">
 
-      <tbody>
-        @foreach ($allSurat as $surat)
-          <tr>
-            <td>{{ $surat->no }}</td>
-            <td>{{ $surat->perihal }}</td>
-            <td>{{ $surat->asal }}</td>
-            <td>{{ $surat->tanggal->format('d F Y') }}</td>
-            <td>
+            <div class="col-md-8">
+              <div>
+                <span class="text-primary">{{ $surat->tanggal->format('d F Y') }}</span>
+                @if ($surat->final == 0)
+                <span class="label label-primary">Proses</span>
+                @else
+                <span class="label label-success">Selesai</span>
+                @endif
+              </div>
+              <div>
+                <span class="text-muted">{{ $surat->no }}</span>
+              </div>
+              <div style="font-size: 16px; font-family: Georgia; font-weight: bold">
+                {{ $surat->perihal }}
+              </div>
+              <div style="font-family: 'Palatino Linotype'">
+                Asal Surat : {{ $surat->asal }}
+              </div>
+            </div>
+
+            <div class="col-md-4">
+							@if (sizeof($surat->logs) > 0)
               <?php
                 $i=sizeof($surat->logs)-1;
                 $log = $surat->logs[$i];
@@ -79,17 +108,20 @@
                 <?php $log = $surat->logs[$i]; ?>
                 <div><font color="D0D0D0"><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
               <?php } ?>
-            </td>
-            <td>{{ $surat->keterangan }}</td>
-          </tr>
-        @endforeach
-      </tbody>
+							@endif
+            </div>
+
+          </div>
+        </td>
+      </tr>
+      @endforeach
     </table>
     </div>
+
 	</div>
 </body>
 
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
   $(document).ready(function() {
     setInterval("location.reload(true)", 300000);
   });

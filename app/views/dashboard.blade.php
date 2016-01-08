@@ -11,6 +11,13 @@
     table.fixed { table-layout:fixed; }
     table.fixed td { overflow: hidden; }
     loujien {text-align: right; text-size: 32px;}
+
+    .table-responsive {
+      overflow-x: visible !important;
+      overflow-y: visible !important;
+    }
+
+
   </style>
 </head>
 <body>
@@ -23,82 +30,126 @@
       </div>
 		</div>
 
-    <div>
-      <form method="get" action="/dashboard">
-        Pencarian
-        <input type="text" name="query" value="{{ Input::get('query') }}" />
-        <button type="submit" class="btn btn-default">Cari</button>
-      </form>
+	<div class="row">
+  <div class="col-md-2 panel panel-default">
+  	<div class="panel-body">
+        <a class="btn btn-info" href="/surat/create">Input Surat Baru</a>
+  	</div>
+  </div>
 
-      @if (Input::get('query') != '')
-      <form method="get" action="/dashboard">
-        <button type="submit" class="btn btn-default">Hapus Pencarian</button>
-      </form>
-      @endif
-      
-      <a class="btn btn-info" href="/surat/create">Input Surat Baru</a>
-    </div>
+	<div class="col-md-8">
+    <form method="get" action="/dashboard">
+      <div class="panel panel-default">
 
-		<div>
-		<table class="table table-striped fixed">
-      <col width="85px"></col>
-      <col width="100px"></col>
-      <col width="100px"></col>
-      <col width="70px"></col>
-      <col width="200px"></col>
-      <col width="100px"></col>
-      <col width="50px"></col>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-3">
+              <input class="form-control" type="text" name="query" value="{{ Input::get('query') }}" />
+            </div>
 
-      <thead>
-        <tr>
-          <th>No. Surat</th>
-          <th>Perihal</th>
-          <th>Asal Surat</th>
-          <th>Tanggal Surat</th>
-          <th>Status</th>
-          <th>Keterangan</th>
-          <th>Action</th>
-        </tr>
-      </thead>
+            <div class="col-md-3">
+              <select class="form-control" name="status">
+                <option value="">Semua</option>
+                <option value="DONE" {{ Input::get('status') == "DONE" ? "selected" : "" }}>Sudah Final</option>
+                <option value="NOTDONE" {{ Input::get('status') == "NOTDONE" ? "selected" : "" }}>Belum Final</option>
+              </select>
+            </div>
 
-      <tbody>
-        @foreach ($allSurat as $surat)
-	        <tr>
-	          <td>{{ $surat->no }}</td>
-	          <td>{{ $surat->perihal }}</td>
-	          <td>{{ $surat->asal }}</td>
-	          <td>{{ $surat->tanggal->format('d F Y') }}</td>
-	          <td>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary form-control">Cari</button>
+            </div>
+
+            @if (Input::get('query') != '' || Input::get('status') != '')
+            <div class="col-md-3">
+              <a href="/dashboard" class="btn btn-danger form-control">Hapus Pencarian</a>
+            </div>
+            @endif
+
+          </div>
+
+        </div>
+      </div>
+
+    </form>
+	</div>
+
+	<div class="text-center">
+		<?php echo $allSurat->appends(Input::except('page'))->links(); ?>
+	</div>
+
+    <div class="table-responsive">
+    <table class="table table-striped">
+      @foreach ($allSurat as $index=>$surat)
+      <tr>
+        <td>
+          <div class="row">
+
+            <div class="col-md-7">
+              <div>
+                <span class="text-primary">{{ $surat->tanggal->format('d F Y') }}</span>
+                @if ($surat->final == 0)
+                <span class="label label-primary">Proses</span>
+                @else
+                <span class="label label-success">Selesai</span>
+                @endif
+              </div>
+              <div>
+                <span class="text-muted">{{ $surat->no }}</span>
+              </div>
+              <div style="font-size: 16px; font-family: Georgia; font-weight: bold">
+                {{ $surat->perihal }}
+              </div>
+              <div style="font-family: 'Palatino Linotype'">
+                Asal Surat : {{ $surat->asal }}
+              </div>
+            </div>
+
+            <div class="col-md-4">
+							@if (sizeof($surat->logs) > 0)
               <?php
                 $i=sizeof($surat->logs)-1;
                 $log = $surat->logs[$i];
                 $i--;
               ?>
               <div><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
-	          	<?php for ($i=$i; $i >= 0; $i--) { ?>
+              <?php for ($i=$i; $i >= 0; $i--) { ?>
                 <?php $log = $surat->logs[$i]; ?>
                 <div><font color="D0D0D0"><b>{{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</b></div>
-	          	<?php } ?>
-	          </td>
-	          <td>{{ $surat->keterangan }}</td>
-	          <td>
-              @if ($surat->final === 0)
-	          	<div>
-	          		<a href="/surat/finalize?no={{ $surat->no }}" class="btn btn-default btn-xs btn-success">Finalisasi</a>
-	          	</div>
-              <div>
-                <a href="/surat/edit?no={{ $surat->no }}" class="btn btn-default btn-xs">Edit</a>
+              <?php } ?>
+							@endif
+            </div>
+
+            @if ($surat->final == 0)
+            <div class="col-md-1">
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toogle" id="actionDropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  Action
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="actionDropdown">
+                  <li><a href="/surat/edit?no={{ $surat->no }}">Edit</a></li>
+                  <li><a href="/surat/update?no={{ $surat->no }}">Update Status</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/surat/finalize?no={{ $surat->no }}">Finalisasi</a></li>
+                </ul>
               </div>
-	          	<div>
-	          		<a href="/surat/update?no={{ $surat->no }}" class="btn btn-default btn-xs">Update</a>
-	          	</div>
-              @endif
-	          </td>
-	        </tr>
-        @endforeach
-      </tbody>
+            </div>
+            @endif
+
+          </div>
+        </td>
+      </tr>
+      @endforeach
     </table>
     </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted text-center">Copyright arrosyidbh@gmail.com<br>MIT License</p>
+      </div>
+    </footer>
+
+
 	</div>
 </body>
 </html>

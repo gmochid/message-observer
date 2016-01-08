@@ -13,14 +13,20 @@ class HomeController extends BaseController {
 	{
 		$allSurat = Surat::getSuratFromQuery();		
 
-		return View::make('home', array('allSurat' => $allSurat));
+		return View::make(
+			'home', 
+			array('allSurat' => $allSurat)
+		);
 	}
 
 	public function showDashboard()
 	{
 		$allSurat = Surat::getSuratFromQuery();
 
-		return View::make('dashboard', array('allSurat' => $allSurat));
+		return View::make(
+			'dashboard', 
+			array('allSurat' => $allSurat)
+		);
 	}
 
 	public function showLogin()

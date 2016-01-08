@@ -1,7 +1,4 @@
 <?php
-
-use Carbon\Carbon;
-
 class TableSeeder extends Seeder {
 	/**
 	 * Run the database seeds.
@@ -90,7 +87,7 @@ class TableSeeder extends Seeder {
 		User::create(
 			array(
 				'username'		=> 'budi',
-				'password'		=> 'budi',
+				'password'		=> Hash::make('budi'),
 				'nickname'		=> 'BR',
 			)
 		);
@@ -98,7 +95,7 @@ class TableSeeder extends Seeder {
 		User::create(
 			array(
 				'username'		=> 'didi',
-				'password'		=> 'didi',
+				'password'		=> Hash::make('didi'),
 				'nickname'		=> 'DS',
 			)
 		);
@@ -120,7 +117,6 @@ class TableSeeder extends Seeder {
 				'perihal'		=> 'Permohonan Anggaran Pelatihan',
 				'asal'			=> 'UNISSULA - FK. Farmasi',
 				'keterangan'	=> '',
-				'tanggal'		=> Carbon::now(),
 				'final'			=> 0,
 			)
 		);
@@ -131,7 +127,6 @@ class TableSeeder extends Seeder {
 				'perihal'		=> 'Permohonan Dana Pembangunan',
 				'asal'			=> 'Bagian Pembangunan YBWSA',
 				'keterangan'	=> 'Dana sudah disetujui',
-				'tanggal'		=> Carbon::now(),
 				'final'			=> 1,
 			)
 		);

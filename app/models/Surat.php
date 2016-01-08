@@ -30,23 +30,55 @@ class Surat extends Eloquent {
 		return $this->hasMany('Logs', 'no', 'no');
 	}
 
+	public function scopeStatus($query, $status)
+	{
+		return $query->where('final', '=', $status);
+	}
+
+	public function scopeQuery($query, $keyword)
+	{
+		return $query->where('no', 'like', '%'.$keyword.'%')
+					->orWhere('perihal', 'like', '%'.$keyword.'%')
+					->orWhere('asal', 'like', '%'.$keyword.'%');
+	}
+
+	public function scopeFrom($query, $from)
+	{
+		return $query->where('created_at', '>=', new DateTime($from));
+	}
+
+	public function scopeTo($query, $to)
+	{
+		return $query->where('created_at', '<=', new DateTime($to));
+	}
+
 	public static function getSuratFromQuery()
 	{
 		$query = Input::get('query', '');
+		$status = Input::get('status', '');
+		$surat = null;
 
 		if($query == '')
 		{
-			return Surat::all();
+			$surat = Surat::orderBy('tanggal', 'DESC');
 		}
-		else 
+		else
 		{
-			$surat = new Surat();
-			$columns = Schema::getColumnListing($surat->table);
-			return Surat::where('no', 'like', '%'.$query.'%')
+			$surat = Surat::where('no', 'like', '%'.$query.'%')
 						->orWhere('perihal', 'like', '%'.$query.'%')
-						->orWhere('asal', 'like', '%'.$query.'%')
-						->get();
+						->orWhere('asal', 'like', '%'.$query.'%');
 		}
+
+		if($status == 'DONE')
+		{
+			$surat = $surat->where('final', '=', 1);
+		}
+		else if($status == 'NOTDONE')
+		{
+			$surat = $surat->where('final', '=', 0);
+		}
+
+		return $surat->paginate(10);
 	}
 
 	public static function getSuratFromRequest()
