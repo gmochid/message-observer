@@ -34,7 +34,16 @@
     <div class="col-md-2 panel panel-default">
       <div class="panel-body">
         <a class="btn btn-info" href="/surat/create">Input Surat Baru</a>
+        <hr/>
 
+        <div class="checkbox">
+          <label><input type="radio" value="1" name="print-type"> Semua</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="radio" value="2" name="print-type"> Halaman Ini</label>
+        </div>
+
+        <a class="btn btn-info" href="">Tampilan Print</a>
         <hr/>
 
         <form method="get" action="/dashboard">
