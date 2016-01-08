@@ -34,7 +34,9 @@
     <div class="col-md-2 panel panel-default">
       <div class="panel-body">
         <a class="btn btn-info" href="/surat/create">Input Surat Baru</a>
+
         <hr/>
+
         <form method="get" action="/dashboard">
           <div>
             <div class="checkbox">
@@ -98,9 +100,7 @@
           </div>
 
           @if (Input::get('query') != '' || Input::get('status') != '')
-            <div class="col-md-3">
               <a href="/dashboard" class="btn btn-danger form-control">Hapus Pencarian</a>
-            </div>
           @endif
 
         </form>

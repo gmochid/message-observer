@@ -1,7 +1,6 @@
 <?php
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 class Surat extends Eloquent {
 
