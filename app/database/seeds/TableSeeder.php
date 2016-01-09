@@ -118,6 +118,7 @@ class TableSeeder extends Seeder {
 				'asal'			=> 'UNISSULA - FK. Farmasi',
 				'keterangan'	=> '',
 				'final'			=> 0,
+				'tanggal'		=> '2015-12-28',
 			)
 		);
 
@@ -128,6 +129,7 @@ class TableSeeder extends Seeder {
 				'asal'			=> 'Bagian Pembangunan YBWSA',
 				'keterangan'	=> 'Dana sudah disetujui',
 				'final'			=> 1,
+				'tanggal'		=> '2015-12-29',
 			)
 		);
 	}
