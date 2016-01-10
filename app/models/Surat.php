@@ -42,6 +42,16 @@ class Surat extends Eloquent {
 		return $query->where('perihal', 'like', '%'.$keyword.'%');
 	}
 
+	public function scopeNo($query, $keyword)
+	{
+		return $query->where('no', 'like', '%'.$keyword.'%');
+	}
+
+	public function scopeAsal($query, $keyword)
+	{
+		return $query->where('asal', 'like', '%'.$keyword.'%');
+	}
+
 	public function scopeFromTanggal($query, $fromMonth, $fromYear)
 	{
 		return $query->where('tanggal', '>=', Carbon::createFromDate($fromYear, $fromMonth)->startOfMonth());

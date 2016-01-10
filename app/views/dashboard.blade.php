@@ -93,7 +93,15 @@
           </div>
 
           <div>
-            <input class="form-control" type="text" name="query" value="{{ Input::get('query') }}" placeholder="Perihal" />
+            <input class="form-control" type="text" name="perihal" value="{{ Input::get('query') }}" placeholder="Perihal" />
+          </div>
+
+          <div>
+            <input class="form-control" type="text" name="no" value="{{ Input::get('no') }}" placeholder="Nomor Surat" />
+          </div>
+
+          <div>
+            <input class="form-control" type="text" name="asal" value="{{ Input::get('asal') }}" placeholder="Asal Surat" />
           </div>
 
           <div>
@@ -138,7 +146,7 @@
                       @endif
                     </div>
                     <div>
-                      <span class="text-muted">{{ $surat->no }}</span>
+                      <span class="text-muted">Nomor Surat : {{ $surat->no }}</span>
                     </div>
                     <div style="font-size: 16px; font-family: Georgia; font-weight: bold">
                       {{ $surat->perihal }}

@@ -41,7 +41,9 @@ class HomeController extends BaseController {
 		$status = Input::get('status', '');
 		$from = Input::get('from', '0');
 		$to = Input::get('to', '0');
-		$query = Input::get('query', '');
+		$perihal = Input::get('perihal', '');
+		$no = Input::get('no', '');
+		$asal = Input::get('asal', '');
 
 		$allSurat = Surat::query();
 
@@ -64,9 +66,19 @@ class HomeController extends BaseController {
 			$allSurat = $allSurat->toTanggal(Input::get('to-month'), Input::get('to-year'));
 		}
 
-		if($query != '')
+		if($perihal != '')
 		{
-			$allSurat = $allSurat->perihal($query);
+			$allSurat = $allSurat->perihal($perihal);
+		}
+
+		if($no != '')
+		{
+			$allSurat = $allSurat->no($no);
+		}
+
+		if($asal != '')
+		{
+			$allSurat = $allSurat->asal($asal);
 		}
 
 		$allSurat = $allSurat->orderBy('updated_at', 'desc');
