@@ -49,14 +49,14 @@
         <form method="get" action="/dashboard">
           <div>
             <div class="checkbox">
-              <label><input type="checkbox" value="1" name="from">Dari Tanggal</label>
+              <label><input type="checkbox" value="1" name="from" {{ Input::get('from')==1?'checked':'' }}>Dari Bulan</label>
             </div>
           </div>
           <div>
             <div class="form-group">
               <select class="form-control" name="from-month">
                 @for($i = 1; $i <= 12; $i++)
-                  <option value="{{$i}}">{{$i}}</option>
+                  <option value="{{$i}}" {{ Input::get('from-month')==$i?'selected':'' }}>{{$i}}</option>
                 @endfor
               </select>
             </div>
@@ -65,20 +65,20 @@
             <div class="form-group">
               <select class="form-control" name="from-year">
                 @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
-                  <option value="{{$i}}">{{$i}}</option>
+                  <option value="{{$i}}" {{ Input::get('from-year')==$i?'selected':'' }}>{{$i}}</option>
                 @endfor
               </select>
             </div>
           </div>
           <div>
             <div class="checkbox">
-              <label><input type="checkbox" value="1" name="to">Sampai Tanggal</label>
+              <label><input type="checkbox" value="1" name="to" {{ Input::get('to')==1?'checked':'' }}>Sampai Bulan</label>
             </div>
           </div>
           <div class="form-group">
             <select class="form-control" name="to-month">
               @for($i = 1; $i <= 12; $i++)
-                <option value="{{$i}}">{{$i}}</option>
+                <option value="{{$i}}" {{ Input::get('to-month')==$i?'selected':'' }}>{{$i}}</option>
               @endfor
             </select>
           </div>
@@ -86,21 +86,21 @@
             <div class="form-group">
               <select class="form-control" name="to-year">
                 @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
-                  <option value="{{$i}}">{{$i}}</option>
+                  <option value="{{$i}}" {{ Input::get('to-year')==$i?'selected':'' }}>{{$i}}</option>
                 @endfor
               </select>
             </div>
           </div>
 
           <div>
-            <input class="form-control" type="text" name="query" value="{{ Input::get('query') }}" placeholder="Pencarian" />
+            <input class="form-control" type="text" name="query" value="{{ Input::get('query') }}" placeholder="Perihal" />
           </div>
 
           <div>
             <select class="form-control" name="status">
               <option value="">Semua Status</option>
-              <option value="DONE" {{ Input::get('status') == "DONE" ? "selected" : "" }}>Sudah Final</option>
-              <option value="NOTDONE" {{ Input::get('status') == "NOTDONE" ? "selected" : "" }}>Belum Final</option>
+              <option value="DONE" {{ Input::get('status') == 'DONE' ? 'selected' : '' }}>Sudah Final</option>
+              <option value="NOTDONE" {{ Input::get('status') == 'NOTDONE' ? 'selected' : '' }}>Belum Final</option>
             </select>
           </div>
 
@@ -108,7 +108,7 @@
             <button type="submit" class="btn btn-primary form-control">Cari</button>
           </div>
 
-          @if (Input::get('query') != '' || Input::get('status') != '')
+          @if (sizeof(Input::all()) > 0)
               <a href="/dashboard" class="btn btn-danger form-control">Hapus Pencarian</a>
           @endif
 

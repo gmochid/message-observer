@@ -13,7 +13,7 @@ class HomeController extends BaseController {
 
 	public function showHome()
 	{
-		$allSurat = Surat::getSuratFromQuery();		
+		$allSurat = Surat::getSuratFromQuery();
 
 		return View::make(
 			'home', 
@@ -23,9 +23,24 @@ class HomeController extends BaseController {
 
 	public function showDashboard()
 	{
+		$allSurat = $this->getSuratFromRequest();
+
+		return View::make(
+			'dashboard', 
+			array('allSurat' => $allSurat)
+		);
+	}
+
+	public function showLogin()
+	{
+		return View::make('login');		
+	}
+
+	private function getSuratFromRequest()
+	{
 		$status = Input::get('status', '');
-		$from = Input::get('from', '');
-		$to = Input::get('to', '');
+		$from = Input::get('from', '0');
+		$to = Input::get('to', '0');
 		$query = Input::get('query', '');
 
 		$allSurat = Surat::query();
@@ -39,12 +54,12 @@ class HomeController extends BaseController {
 			$allSurat = $allSurat->status(0);
 		}
 
-		if($from != '')
+		if($from == '1')
 		{
 			$allSurat = $allSurat->fromTanggal(Input::get('from-month'), Input::get('from-year'));
 		}
 
-		if($to != '')
+		if($to == '1')
 		{
 			$allSurat = $allSurat->toTanggal(Input::get('to-month'), Input::get('to-year'));
 		}
@@ -57,15 +72,7 @@ class HomeController extends BaseController {
 		$allSurat = $allSurat->orderBy('updated_at', 'desc');
 		$allSurat = $allSurat->paginate(10);
 
-		return View::make(
-			'dashboard', 
-			array('allSurat' => $allSurat)
-		);
-	}
-
-	public function showLogin()
-	{
-		return View::make('login');		
+		return $allSurat;
 	}
 
 }
