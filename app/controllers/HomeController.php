@@ -31,6 +31,16 @@ class HomeController extends BaseController {
 		);
 	}
 
+	public function showPrint()
+	{
+		$allSurat = $this->getSuratFromRequest();
+
+		return View::make(
+			'print',
+			array('allSurat' => $allSurat)
+		);
+	}
+
 	public function showLogin()
 	{
 		return View::make('login');		

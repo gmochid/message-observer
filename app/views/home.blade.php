@@ -10,7 +10,6 @@
   <style type="text/css">
     table.fixed { table-layout:fixed; }
     table.fixed td { overflow: hidden; }
-    login {text-align: right; }
   </style>
 </head>
 <body>
@@ -21,7 +20,7 @@
       <a href="/dashboard">Dashboard</a><br/>
       @endif
       @if (Auth::guest())
-      <div class="login">
+      <div>
         <a href="/login">Login</a>
       </div>
       @endif

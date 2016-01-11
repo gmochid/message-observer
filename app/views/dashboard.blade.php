@@ -16,7 +16,6 @@
       overflow-y: visible !important;
     }
 
-
   </style>
 </head>
 <body>
@@ -25,106 +24,94 @@
     <div class="page-header">
       <h1>Aplikasi Kontrol Surat <small>Dashboard</small></h1>
       <a href="/">Home (Live Update)</a><br/>
-      <div class="loujien">
+      <div>
         <a href="/logout">Logout</a>
       </div>
     </div>
 
     <div class="row">
     <div class="col-md-3 col-lg-2 panel panel-default">
+      <form id="search-form" method="get" action="/dashboard">
       <div class="panel-body">
-        <a class="btn btn-info" href="/surat/create">Input Surat Baru</a>
+        <a class="btn btn-primary form-control" href="/surat/create">Input Surat Baru</a>
         <hr/>
 
         <div class="checkbox">
           <label><input type="radio" value="1" name="print-type"> Semua</label>
         </div>
         <div class="checkbox">
-          <label><input type="radio" value="2" name="print-type"> Halaman Ini</label>
+          <label><input type="radio" value="2" name="print-type" checked> Halaman Ini Saja</label>
         </div>
 
-        <a class="btn btn-info" href="">Tampilan Print</a>
+        <button id="print-button" class="btn btn-primary form-control">Tampilan Print</button>
         <hr/>
 
-        <form method="get" action="/dashboard">
+        <div class="form-group">
+          <label>Urut Berdasarkan</label>
+          <div class="checkbox">
+            <label><input type="radio" value="tanggal" name="order-by" checked> Tanggal Surat</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="radio" value="updated_at" name="order-by"> Update Terakhir</label>
+          </div>
+        </div>
 
-          <div class="form-group">
-            <label>Urut Berdasarkan</label>
-            <div class="checkbox">
-              <label><input type="radio" value="tanggal" name="order-by" checked> Tanggal Surat</label>
-            </div>
-            <div class="checkbox">
-              <label><input type="radio" value="updated_at" name="order-by"> Update Terakhir</label>
-            </div>
-          </div>
+        <div class="checkbox">
+          <label><input type="checkbox" value="1" name="from" {{ Input::get('from')==1?'checked':'' }}>Dari Bulan</label>
+        </div>
+        <div class="form-group">
+          <select class="form-control" name="from-month">
+            @for($i = 1; $i <= 12; $i++)
+              <option value="{{$i}}" {{ Input::get('from-month')==$i?'selected':'' }}>{{$i}}</option>
+            @endfor
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="form-control" name="from-year">
+            @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
+              <option value="{{$i}}" {{ Input::get('from-year')==$i?'selected':'' }}>{{$i}}</option>
+            @endfor
+          </select>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" value="1" name="to" {{ Input::get('to')==1?'checked':'' }}>Sampai Bulan</label>
+        </div>
 
-          <div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="1" name="from" {{ Input::get('from')==1?'checked':'' }}>Dari Bulan</label>
-            </div>
-          </div>
-          <div>
-            <div class="form-group">
-              <select class="form-control" name="from-month">
-                @for($i = 1; $i <= 12; $i++)
-                  <option value="{{$i}}" {{ Input::get('from-month')==$i?'selected':'' }}>{{$i}}</option>
-                @endfor
-              </select>
-            </div>
-          </div>
-          <div>
-            <div class="form-group">
-              <select class="form-control" name="from-year">
-                @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
-                  <option value="{{$i}}" {{ Input::get('from-year')==$i?'selected':'' }}>{{$i}}</option>
-                @endfor
-              </select>
-            </div>
-          </div>
-          <div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="1" name="to" {{ Input::get('to')==1?'checked':'' }}>Sampai Bulan</label>
-            </div>
-          </div>
+        <div class="form-group">
+          <select class="form-control" name="to-month">
+            @for($i = 1; $i <= 12; $i++)
+              <option value="{{$i}}" {{ Input::get('to-month')==$i?'selected':'' }}>{{$i}}</option>
+            @endfor
+          </select>
+        </div>
+        <div>
           <div class="form-group">
-            <select class="form-control" name="to-month">
-              @for($i = 1; $i <= 12; $i++)
-                <option value="{{$i}}" {{ Input::get('to-month')==$i?'selected':'' }}>{{$i}}</option>
+            <select class="form-control" name="to-year">
+              @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
+                <option value="{{$i}}" {{ Input::get('to-year')==$i?'selected':'' }}>{{$i}}</option>
               @endfor
             </select>
           </div>
-          <div>
-            <div class="form-group">
-              <select class="form-control" name="to-year">
-                @for($i = 2015; $i <= \Carbon\Carbon::now()->year; $i++)
-                  <option value="{{$i}}" {{ Input::get('to-year')==$i?'selected':'' }}>{{$i}}</option>
-                @endfor
-              </select>
-            </div>
-          </div>
+        </div>
 
-          <input class="form-control" type="text" name="perihal" value="{{ Input::get('query') }}" placeholder="Perihal" />
-          <input class="form-control" type="text" name="no" value="{{ Input::get('no') }}" placeholder="Nomor Surat" />
-          <input class="form-control" type="text" name="asal" value="{{ Input::get('asal') }}" placeholder="Asal Surat" />
+        <input class="form-control" type="text" name="perihal" value="{{ Input::get('query') }}" placeholder="Perihal" />
+        <input class="form-control" type="text" name="no" value="{{ Input::get('no') }}" placeholder="Nomor Surat" />
+        <input class="form-control" type="text" name="asal" value="{{ Input::get('asal') }}" placeholder="Asal Surat" />
 
-          <div>
-            <select class="form-control" name="status">
-              <option value="">Semua Status</option>
-              <option value="DONE" {{ Input::get('status') == 'DONE' ? 'selected' : '' }}>Sudah Final</option>
-              <option value="NOTDONE" {{ Input::get('status') == 'NOTDONE' ? 'selected' : '' }}>Belum Final</option>
-            </select>
-          </div>
+        <select class="form-control" name="status">
+          <option value="">Semua Status</option>
+          <option value="DONE" {{ Input::get('status') == 'DONE' ? 'selected' : '' }}>Sudah Final</option>
+          <option value="NOTDONE" {{ Input::get('status') == 'NOTDONE' ? 'selected' : '' }}>Belum Final</option>
+        </select>
 
-          <div>
-            <button type="submit" class="btn btn-primary form-control">Cari</button>
-          </div>
+        <button type="submit" class="btn btn-primary form-control">Cari</button>
 
-          @if (sizeof(Input::all()) > 0)
-              <a href="/dashboard" class="btn btn-danger form-control">Hapus Pencarian</a>
-          @endif
+        @if (sizeof(Input::all()) > 0)
+            <a href="/dashboard" class="btn btn-danger form-control">Hapus Pencarian</a>
+        @endif
 
-        </form>
       </div>
+      </form>
     </div>
 
     <div class="col-md-9 col-lg-10">
@@ -207,6 +194,16 @@
     </footer>
 
   </div>
+
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+      $('#print-button').click(function() {
+        $('#search-form').attr('action', '/print').submit();
+      });
+    });
+
+  </script>
 
 </body>
 </html>
