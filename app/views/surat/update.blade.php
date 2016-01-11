@@ -51,14 +51,23 @@
         </div>
 
         <div class="form-group">
-          <label>Status</label>
-          <select class="form-control" name="status">
-            @foreach ($allStatus as $status)
-              @if ($status->status_id != 0)
-              <option value="{{ $status->status_id }}">{{ $status->detail }}</option>
-              @endif
+          <div style="font-weight: bold">Status Surat</div>
+          <ul class="list-group">
+            @foreach($surat->logs as $i => $log)
+              <li class="list-group-item">{{$i+1}}. {{ strtok($log->created_at, " ") }}, {{ $log->user->nickname }}, {{ $log->status->detail }}</li>
             @endforeach
-          </select>
+          </ul>
+        </div>
+
+        <div class="form-group">
+          <label>Status Terbaru</label>
+          <div class="row">
+          @foreach ($allStatus as $status)
+            <div class="col-lg-3 col-md-4 col-xs-6">
+              <input type="radio" name="status" value="{{ $status->status_id }}">{{ $status->detail }}
+            </div>
+          @endforeach
+          </div>
         </div>
 
         <button class="btn btn-default btn-info form-group" type="submit">Submit</button>
