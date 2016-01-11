@@ -37,10 +37,10 @@
         <hr/>
 
         <div class="checkbox">
-          <label><input type="radio" value="1" name="print-type"> Semua</label>
+          <label><input type="radio" value="all" name="print-type"> Semua</label>
         </div>
         <div class="checkbox">
-          <label><input type="radio" value="2" name="print-type" checked> Halaman Ini Saja</label>
+          <label><input type="radio" value="current-page" name="print-type" checked> Halaman Ini Saja</label>
         </div>
 
         <button id="print-button" class="btn btn-primary form-control">Tampilan Print</button>

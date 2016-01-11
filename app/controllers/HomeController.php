@@ -8,7 +8,7 @@ class HomeController extends BaseController {
 	{
 		$this->beforeFilter('guest', array('only' => array('showLogin')));
 
-		$this->beforeFilter('auth', array('only' => array('showDashboard')));
+		$this->beforeFilter('auth', array('except' => array('showLogin')));
 	}
 
 	public function showHome()
@@ -55,6 +55,7 @@ class HomeController extends BaseController {
 		$no = Input::get('no', '');
 		$asal = Input::get('asal', '');
 		$orderBy = Input::get('order-by', 'updated_at');
+		$printType = Input::get('print-type', 'current-page');
 
 		$allSurat = Surat::query();
 
@@ -93,7 +94,15 @@ class HomeController extends BaseController {
 		}
 
 		$allSurat = $allSurat->orderBy($orderBy, 'desc');
-		$allSurat = $allSurat->paginate(10);
+
+		if($printType == 'all')
+		{
+			$allSurat = $allSurat->get();
+		}
+		else
+		{
+			$allSurat = $allSurat->paginate(10);
+		}
 
 		return $allSurat;
 	}
