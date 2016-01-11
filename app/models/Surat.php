@@ -62,32 +62,4 @@ class Surat extends Eloquent {
 		return $query->where('tanggal', '<=', Carbon::createFromDate($toYear, $toMonth)->endOfMonth());
 	}
 
-	public static function getSuratFromQuery()
-	{
-		$query = Input::get('query', '');
-		$status = Input::get('status', '');
-		$surat = null;
-
-		if($query == '')
-		{
-			$surat = Surat::orderBy('tanggal', 'DESC');
-		}
-		else
-		{
-			$surat = Surat::where('no', 'like', '%'.$query.'%')
-						->orWhere('perihal', 'like', '%'.$query.'%')
-						->orWhere('asal', 'like', '%'.$query.'%');
-		}
-
-		if($status == 'DONE')
-		{
-			$surat = $surat->where('final', '=', 1);
-		}
-		else if($status == 'NOTDONE')
-		{
-			$surat = $surat->where('final', '=', 0);
-		}
-
-		return $surat->paginate(10);
-	}
 }

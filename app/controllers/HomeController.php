@@ -13,7 +13,7 @@ class HomeController extends BaseController {
 
 	public function showHome()
 	{
-		$allSurat = Surat::getSuratFromQuery();
+		$allSurat = $this->getSuratFromRequest();
 
 		return View::make(
 			'home', 
