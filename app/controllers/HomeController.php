@@ -44,6 +44,7 @@ class HomeController extends BaseController {
 		$perihal = Input::get('perihal', '');
 		$no = Input::get('no', '');
 		$asal = Input::get('asal', '');
+		$orderBy = Input::get('order-by', 'updated_at');
 
 		$allSurat = Surat::query();
 
@@ -81,7 +82,7 @@ class HomeController extends BaseController {
 			$allSurat = $allSurat->asal($asal);
 		}
 
-		$allSurat = $allSurat->orderBy('updated_at', 'desc');
+		$allSurat = $allSurat->orderBy($orderBy, 'desc');
 		$allSurat = $allSurat->paginate(10);
 
 		return $allSurat;

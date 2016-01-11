@@ -31,7 +31,7 @@
     </div>
 
     <div class="row">
-    <div class="col-md-2 panel panel-default">
+    <div class="col-md-3 col-lg-2 panel panel-default">
       <div class="panel-body">
         <a class="btn btn-info" href="/surat/create">Input Surat Baru</a>
         <hr/>
@@ -47,6 +47,17 @@
         <hr/>
 
         <form method="get" action="/dashboard">
+
+          <div class="form-group">
+            <label>Urut Berdasarkan</label>
+            <div class="checkbox">
+              <label><input type="radio" value="tanggal" name="order-by" checked> Tanggal Surat</label>
+            </div>
+            <div class="checkbox">
+              <label><input type="radio" value="updated_at" name="order-by"> Update Terakhir</label>
+            </div>
+          </div>
+
           <div>
             <div class="checkbox">
               <label><input type="checkbox" value="1" name="from" {{ Input::get('from')==1?'checked':'' }}>Dari Bulan</label>
@@ -92,17 +103,9 @@
             </div>
           </div>
 
-          <div>
-            <input class="form-control" type="text" name="perihal" value="{{ Input::get('query') }}" placeholder="Perihal" />
-          </div>
-
-          <div>
-            <input class="form-control" type="text" name="no" value="{{ Input::get('no') }}" placeholder="Nomor Surat" />
-          </div>
-
-          <div>
-            <input class="form-control" type="text" name="asal" value="{{ Input::get('asal') }}" placeholder="Asal Surat" />
-          </div>
+          <input class="form-control" type="text" name="perihal" value="{{ Input::get('query') }}" placeholder="Perihal" />
+          <input class="form-control" type="text" name="no" value="{{ Input::get('no') }}" placeholder="Nomor Surat" />
+          <input class="form-control" type="text" name="asal" value="{{ Input::get('asal') }}" placeholder="Asal Surat" />
 
           <div>
             <select class="form-control" name="status">
@@ -124,7 +127,7 @@
       </div>
     </div>
 
-    <div class="col-md-10">
+    <div class="col-md-9 col-lg-10">
       <div class="text-center">
         <?php echo $allSurat->appends(Input::except('page'))->links(); ?>
       </div>
